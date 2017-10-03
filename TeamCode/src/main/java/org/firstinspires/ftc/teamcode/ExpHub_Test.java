@@ -21,7 +21,6 @@ public class ExpHub_Test extends OpMode{
     public void init() {
 
         right = hardwareMap.dcMotor.get ("right");
-        left.setDirection(DcMotorSimple.Direction.REVERSE);
 
     }
     public void loop ()
