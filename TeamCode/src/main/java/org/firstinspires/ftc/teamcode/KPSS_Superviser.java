@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
  * Created by artembookpro on 03.10.17.
  */
 
+/**
 public class KPSS_Superviser extends OpMode{
     ColorSensor color_sensor;
     public void init()
@@ -17,3 +18,4 @@ while (color_sensor.alpha() < 20) {
 
     }
 }
+**/
