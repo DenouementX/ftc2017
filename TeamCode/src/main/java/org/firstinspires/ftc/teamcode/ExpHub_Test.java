@@ -10,8 +10,6 @@ import com.qualcomm.robotcore.util.Range;
  * Created by KPSS on 26.09.17.
  */
 
-// test
-
 @TeleOp
 public class ExpHub_Test extends OpMode{
 
