@@ -26,11 +26,7 @@ public class KPSS_Superviser extends OpMode{
     }
     public void loop(){
         while (color_sensor.alpha() < 20) {
-            float right_power = -gamepad1.right_stick_y;
-
-            right_power = Range.clip(right_power, -1, 1);
-
-            right.setPower(right_power);
+            right.setPower(1);
         }
     }
 }
