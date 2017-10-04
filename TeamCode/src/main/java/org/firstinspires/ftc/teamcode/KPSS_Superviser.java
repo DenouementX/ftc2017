@@ -28,8 +28,10 @@ public class KPSS_Superviser extends OpMode{
     public void loop(){
         telemetry.addData("Color_Sensor: ", color_sensor.alpha());
 
-        while (color_sensor.alpha() < 20) {
+        if (color_sensor.alpha() > 400) {
             right.setPower(1);
         }
+        right.setPower(0);
+
     }
 }
