@@ -16,7 +16,6 @@ import com.qualcomm.robotcore.util.Range;
 public class ExpHub_Test extends OpMode{
 
     DcMotor right;
-    DcMotor left;
 
     public void init() {
 
