@@ -29,5 +29,3 @@ public class ExpHub_Test extends OpMode{
         right.setPower(right_power);
     }
 }
-
-//test
