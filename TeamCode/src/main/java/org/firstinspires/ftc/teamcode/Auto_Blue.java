@@ -1,28 +1,30 @@
 package org.firstinspires.ftc.teamcode;
 
+/* Created by KPSS*/
+
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 
-/**
- * Created by lawrencemao on 10/5/17.
- */
-
-@TeleOp
+@Autonomous
 public class Auto_Blue extends OpMode{
-
-    Servo left;
-
+ColorSensor color_sensor;
+Servo servo;
     public void init(){
-        left = hardwareMap.servo.get("left");
+        servo = hardwareMap.servo.get ("servo");
+        color_sensor = hardwareMap.colorSensor.get("colosensor");
     }
 
-    public void loop(){
-        if (gamepad1.a) {
-            left.setPosition(1);
+    public void loop () {
+        servo.setPosition(0.5);
+        if (color_sensor.alpha() < 20) {
+            servo.setPosition(0.7);
+            servo.setPosition(0);
         }
-        else{
-            left.setPosition(0);
+        if (color_sensor.alpha() < 20) {
+            servo.setPosition(0.4);
+            servo.setPosition(0);
         }
     }
 
