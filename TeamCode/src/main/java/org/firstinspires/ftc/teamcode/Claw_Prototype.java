@@ -9,20 +9,24 @@ import com.qualcomm.robotcore.hardware.Servo;
  */
 
 @TeleOp
-public class Auto_Blue extends OpMode{
+public class Claw_Prototype extends OpMode{
 
     Servo left;
+    Servo right;
 
     public void init(){
         left = hardwareMap.servo.get("left");
+        right = hardwareMap.servo.get("right");
     }
 
     public void loop(){
         if (gamepad1.a) {
             left.setPosition(1);
+            right.setPosition(0);
         }
         else{
             left.setPosition(0);
+            right.setPosition(1);
         }
     }
 
