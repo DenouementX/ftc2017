@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
 /**
  * Created by lawrencemao on 10/8/17.
  */
-
+/**
 public class StateMachines extends OpMode{
     private enum state{
         STATE_INITIAL, //initialize
@@ -48,4 +48,4 @@ public class StateMachines extends OpMode{
 
 
 
-}
+} **/

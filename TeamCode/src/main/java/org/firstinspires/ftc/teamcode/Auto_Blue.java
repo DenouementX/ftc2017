@@ -11,8 +11,8 @@ import com.qualcomm.robotcore.hardware.Servo;
 @Autonomous
 public class Auto_Blue extends OpMode{
 
-ColorSensor color_sensor;
-Servo servo;
+    ColorSensor color_sensor;
+    Servo servo;
 
     DcMotor front_left;
     /*
