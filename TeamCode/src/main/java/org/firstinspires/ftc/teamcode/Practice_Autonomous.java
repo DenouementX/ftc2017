@@ -20,10 +20,10 @@ public class Practice_Autonomous extends LinearOpMode {
     DcMotor motorRightBack = null;
 
     public void runOpMode() throws InterruptedException {
-        motorLeftFront = hardwareMap.dcMotor.get("motorLeftFront");
-        motorLeftBack = hardwareMap.dcMotor.get("motorLeftBack");
-        motorRightFront = hardwareMap.dcMotor.get("motorRightFront");
-        motorRightBack = hardwareMap.dcMotor.get("motorRightBack");
+        motorLeftFront = hardwareMap.dcMotor.get("frontLeft");
+        motorLeftBack = hardwareMap.dcMotor.get("backLeft");
+        motorRightFront = hardwareMap.dcMotor.get("frontRight");
+        motorRightBack = hardwareMap.dcMotor.get("backRight");
 
         motorLeftFront.setDirection(DcMotor.Direction.REVERSE);
         motorLeftBack.setDirection(DcMotor.Direction.REVERSE);
