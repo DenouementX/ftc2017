@@ -22,7 +22,7 @@ Servo servo;
     */
     public void init(){
         servo = hardwareMap.servo.get ("servo");
-        color_sensor = hardwareMap.colorSensor.get("colosensor");
+        color_sensor = hardwareMap.colorSensor.get("colorsensor");
         front_left = hardwareMap.dcMotor.get ("front_left");
         /*
         front_right = hardwareMap.dcMotor.get ("front_right");
@@ -33,15 +33,16 @@ Servo servo;
 
     public void loop () {
         servo.setPosition(0.5);
-        if (color_sensor.blue()) {
+
+        if (color_sensor.blue()/2 > color_sensor.red()) {
             front_left.setPower(1);
-            /*
-            front_right.setPower(1);
-            back_left.setPower(1);
-            back_left.setPower(1);
-            */
+                    /*
+                    front_right.setPower(1);
+                    back_left.setPower(1);
+                    back_left.setPower(1);
+                    */
         }
-        if (color_sensor.alpha() => 750) {
+        if (color_sensor.blue() < color_sensor.red()/2) {
             front_left.setPower(-1);
             /*
             front_right.setPower(-1);
@@ -49,7 +50,8 @@ Servo servo;
             back_left.setPower(-1);
             */
         }
-        else (color_sensor.alpha() <= 470) {
+
+        else{
             servo.setPosition(0);
             /*
             front_left.setPower(0);
@@ -58,6 +60,7 @@ Servo servo;
             back_left.setPower(0);
             */
         }
+        servo.setPosition(0);
     }
 
 }
