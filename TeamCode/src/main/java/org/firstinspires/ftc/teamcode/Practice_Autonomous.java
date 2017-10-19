@@ -26,7 +26,7 @@ public class Practice_Autonomous extends LinearOpMode {
         motorRightBack = hardwareMap.dcMotor.get("backRight");
 
         motorLeftFront.setDirection(DcMotor.Direction.REVERSE);
-        motorLeftBack.setDirection(DcMotor.Direction.REVERSE);
+        //motorLeftBack.setDirection(DcMotor.Direction.REVERSE);
 
         double POWER = .5;
 
