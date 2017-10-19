@@ -32,28 +32,28 @@ public class Practice_Autonomous extends LinearOpMode {
 
         waitForStart();
 
-        while(opModeIsActive()){
+        while (opModeIsActive()) {
             //This SHOULD drive forward.
             motorLeftFront.setPower(POWER);
             motorLeftBack.setPower(POWER);
             motorRightFront.setPower(POWER);
             motorRightBack.setPower(POWER);
 
-            wait(1000);
+            sleep(1000);
             //This SHOULD drive backward.
             motorLeftFront.setPower(-POWER);
             motorLeftBack.setPower(-POWER);
             motorRightFront.setPower(-POWER);
             motorRightBack.setPower(-POWER);
 
-            wait(1000);
+            sleep(1000);
             //This SHOULD drive sideway.
             motorLeftFront.setPower(POWER);
             motorLeftBack.setPower(-POWER);
             motorRightFront.setPower(POWER);
             motorRightBack.setPower(-POWER);
 
-            wait(1000);
+            sleep(1000);
             //This SHOULD stop.
             motorLeftFront.setPower(0);
             motorLeftBack.setPower(0);
