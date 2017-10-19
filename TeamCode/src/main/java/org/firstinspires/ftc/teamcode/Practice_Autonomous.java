@@ -38,27 +38,28 @@ public class Practice_Autonomous extends LinearOpMode {
             motorLeftBack.setPower(POWER);
             motorRightFront.setPower(POWER);
             motorRightBack.setPower(POWER);
-
             sleep(1000);
+
             //This SHOULD drive backward.
             motorLeftFront.setPower(-POWER);
             motorLeftBack.setPower(-POWER);
             motorRightFront.setPower(-POWER);
             motorRightBack.setPower(-POWER);
-
             sleep(1000);
+
             //This SHOULD drive sideway.
             motorLeftFront.setPower(POWER);
             motorLeftBack.setPower(-POWER);
             motorRightFront.setPower(POWER);
             motorRightBack.setPower(-POWER);
-
             sleep(1000);
+
             //This SHOULD stop.
             motorLeftFront.setPower(0);
             motorLeftBack.setPower(0);
             motorRightFront.setPower(0);
             motorRightBack.setPower(0);
+            sleep(1000);
         }
     }
 
