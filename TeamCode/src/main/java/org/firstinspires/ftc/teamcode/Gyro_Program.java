@@ -79,5 +79,4 @@ public class Gyro_Program extends LinearOpMode  {
         sleep(25);
     }
 
-    }
 }
