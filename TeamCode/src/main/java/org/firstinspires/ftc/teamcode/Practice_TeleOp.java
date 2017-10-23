@@ -10,34 +10,43 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
  * Created by kevinwang on 10/20/17.
  */
 
-@TeleOp(name = "Practice_TeleOp")
+@TeleOp(name = "TeleOp Practice")
 
 public class Practice_TeleOp extends LinearOpMode{
 
-    DcMotor motorLeftFront = null;
-    DcMotor motorLeftBack = null;
-    DcMotor motorRightFront = null;
-    DcMotor motorRightBack = null;
+    DcMotor motorfrontLeft = null;
+    DcMotor motorbackLeft = null;
+    DcMotor motorfrontRight = null;
+    DcMotor motorbackRight = null;
 
     public void runOpMode() throws InterruptedException{
-        motorLeftFront = hardwareMap.dcMotor.get("frontLeft");
-        motorLeftBack = hardwareMap.dcMotor.get("backLeft");
-        motorRightFront = hardwareMap.dcMotor.get("frontRight");
-        motorRightBack = hardwareMap.dcMotor.get("backRight");
+        motorfrontLeft = hardwareMap.dcMotor.get("frontLeft");
+        motorbackLeft = hardwareMap.dcMotor.get("backLeft");
+        motorfrontRight = hardwareMap.dcMotor.get("frontRight");
+        motorbackRight = hardwareMap.dcMotor.get("backRight");
 
-        motorLeftFront.setDirection(DcMotor.Direction.REVERSE);
-        //motorLeftBack.setDirection(DcMotor.Direction.REVERSE);
+        motorfrontLeft.setDirection(DcMotor.Direction.REVERSE);
+        //motorbackLeft.setDirection(DcMotor.Direction.REVERSE);
 
-        double POWER = .5;
+        double POWER = 0.5;
 
         waitForStart();
 
         while(opModeIsActive()){
 
-            motorLeftBack.setPower(gamepad1.left_stick_y);
-            motorLeftFront.setPower(gamepad1.left_stick_y);
-            motorRightBack.setPower(gamepad1.right_stick_y);
-            motorRightFront.setPower(gamepad1.right_stick_y);
+            double drive = gamepad1.left_stick_y / 3;
+            double strafe = gamepad1.left_stick_x / 3;
+            double rotate = gamepad1.right_stick_x / 3;
+
+            double frontLeftPower = POWER * (drive + strafe + rotate);
+            double backLeftPower = POWER * (drive - strafe + rotate);
+            double frontRightPower = POWER * (drive - strafe - rotate);
+            double backRightPower = POWER * (drive + strafe - rotate);
+
+            motorfrontLeft.setPower(frontLeftPower);
+            motorbackLeft.setPower(backLeftPower);
+            motorfrontRight.setPower(frontRightPower);
+            motorbackRight.setPower(backRightPower);
 
             idle();
         }
