@@ -48,7 +48,7 @@ public class Practice_TeleOp extends LinearOpMode{
             motorfrontRight.setPower(frontRightPower);
             motorbackRight.setPower(backRightPower);
 
-            idle();
+            idle(); 
 
         }
     }
