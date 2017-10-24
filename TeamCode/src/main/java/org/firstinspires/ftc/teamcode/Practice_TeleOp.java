@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
  * Created by kevinwang on 10/20/17.
  */
 
-@TeleOp(name = "Practice_Autonomous")
+@TeleOp(name = "Practice_TeleOp")
 
 public class Practice_TeleOp extends LinearOpMode{
 
@@ -48,7 +48,8 @@ public class Practice_TeleOp extends LinearOpMode{
             motorfrontRight.setPower(frontRightPower);
             motorbackRight.setPower(backRightPower);
 
-            idle();
+            idle(); 
+
         }
     }
 }
