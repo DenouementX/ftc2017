@@ -114,8 +114,6 @@ public class Auto_Red extends LinearOpMode {
             else {
                 telemetry.addData("VuMark", "not visible");
             }
-
-            telemetry.update();
         }
     }
 
