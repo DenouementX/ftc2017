@@ -38,10 +38,10 @@ public class Practice_TeleOp extends LinearOpMode{
             double strafe = gamepad1.left_stick_x / 3;
             double rotate = gamepad1.right_stick_x / 3;
 
-            double frontLeftPower = POWER * (drive + strafe + rotate);
-            double backLeftPower = POWER * (drive - strafe + rotate);
-            double frontRightPower = POWER * (drive - strafe - rotate);
-            double backRightPower = POWER * (drive + strafe - rotate);
+            double frontLeftPower = POWER * (drive - strafe - rotate);
+            double backLeftPower = POWER * (drive + strafe - rotate);
+            double frontRightPower = POWER * (drive + strafe + rotate);
+            double backRightPower = POWER * (drive - strafe + rotate);
 
             motorfrontLeft.setPower(frontLeftPower);
             motorbackLeft.setPower(backLeftPower);
