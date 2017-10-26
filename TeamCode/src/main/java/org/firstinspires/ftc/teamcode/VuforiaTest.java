@@ -1,5 +1,22 @@
 package org.firstinspires.ftc.teamcode;
 
+/*
+What this autonomous program will do...
+    Jewels - *Keep in mind, robot starts on balancing stone* When autonomous starts,
+    servo will turn 90 degrees counterclockwise (up to down). There will be a color sensor attached
+    to the end of the servo arm to detect the correct ball at close range. The robot will then
+    turn 90 degrees clockwise or counterclockwise. This program assumes the robot will start at
+    the right side of the field when facing the drivers. Hence, if it turns counterclockwise, it
+    won't have to reposition. If it turns clockwise, then turn 180 degrees to reset.
+    to knock off the enemy colored jewel.
+
+    Glyphs - Right when starting, run Vuforia and allow phone to decode left, right, or middle.
+    Then run Jewel code and then after Jewel code is run, move forward (Assume the glyph is loaded
+    in the correct position) with a delay corresponding to the decoded info. Then turn 90 degrees
+    clockwise and put glyph into cryptobox. *Note, later in the season, we may want to put sensors
+    on the bottom of the robot to help align it with the cryptobox*
+ */
+
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
