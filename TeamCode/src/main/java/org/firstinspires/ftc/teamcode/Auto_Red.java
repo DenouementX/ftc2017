@@ -1,44 +1,90 @@
 package org.firstinspires.ftc.teamcode;
 
+//main
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
+
+//vuforia portion
+import org.firstinspires.ftc.robotcore.external.ClassFactory;
+import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
+import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 
 /**
  * Created by lawrencemao on 10/5/17.
  */
 
-/*
-What this autonomous program will do...
-    Jewels - *Keep in mind, robot starts on balancing stone* When autonomous starts,
-    servo will turn 90 degrees counterclockwise (up to down). There will be a color sensor attached
-    to the end of the servo arm to detect the correct ball at close range. The robot will then
-    turn 90 degrees clockwise or counterclockwise. This program assumes the robot will start at
-    the right side of the field when facing the drivers. Hence, if it turns counterclockwise, it
-    won't have to reposition. If it turns clockwise, then turn 180 degrees to reset.
-    to knock off the enemy colored jewel.
+@Autonomous(name="VuforiaTest", group ="Concept")
 
-    Glyphs - Right when starting, run Vuforia and allow phone to decode left, right, or middle.
-    Then run Jewel code and then after Jewel code is run, move forward (Assume the glyph is loaded
-    in the correct position) with a delay corresponding to the decoded info. Then turn 90 degrees
-    clockwise and put glyph into cryptobox. *Note, later in the season, we may want to put sensors
-    on the bottom of the robot to help align it with the cryptobox*
- */
+public class Auto_Red extends LinearOpMode {
 
-public class Auto_Red extends OpMode{
+    public static final String TAG = "Vuforia VuMark Sample";
 
-    Servo left;
+    OpenGLMatrix lastLocation = null;
 
-    public void init(){
-        left = hardwareMap.servo.get("left");
+    VuforiaLocalizer vuforia;
+
+    @Override public void runOpMode() {
+
+        Servo jewel;
+        ColorSensor color;
+
+        jewel = hardwareMap.servo.get ("jewel");
+        color = hardwareMap.colorSensor.get("color");
+
+        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+        VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
+
+        parameters.vuforiaLicenseKey = "AXzW9CD/////AAAAGTPAtr9HRUXZmowtd9p0AUwuXiBVONS/c5x1q8OvjMrQ8/XJGxEp0TP9Kl8PvqSzeXOWIvVa3AeB6MyAQboyW/Pgd/c4a4U/VBs1ouUsVBkEdbaq1iY7RR0cjYr3eLwEt6tmI37Ugbwrd5gmxYvOBQkGqzpbg2U2bVLycc5PkOixu7PqPqaINGZYSlvUzEMAenLOCxZFpsayuCPRbWz6Z9UJfLeAbfAPmmDYoKNXRFll8/jp5Ie7iAhSQgfFggWwyiqMRCFA3GPTsOJS4H1tSiGlMjVzbJnkusPKXfJ0dK3OH9u7ox9ESpi91T0MemXw3nn+/6QRvjGtgFH+wMDuQX7ta89+yW+wqdXX9ZQu8BzY";
+
+        parameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;
+        this.vuforia = ClassFactory.createVuforiaLocalizer(parameters);
+
+        VuforiaTrackables relicTrackables = this.vuforia.loadTrackablesFromAsset("RelicVuMark");
+        VuforiaTrackable relicTemplate = relicTrackables.get(0);
+        relicTemplate.setName("relicVuMarkTemplate");
+
+        telemetry.addData(">", "Press Play to start");
+        telemetry.update();
+        waitForStart();
+
+        relicTrackables.activate();
+
+        jewel.setPosition(1.0);
+        while (opModeIsActive()) {
+            telemetry.addData("RED: ", color.red());
+            telemetry.addData("BLUE: ", color.blue());
+
+            RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
+            if (vuMark != RelicRecoveryVuMark.UNKNOWN) {
+
+                telemetry.addData("VuMark", "%s visible", vuMark);
+                if (vuMark == RelicRecoveryVuMark.LEFT){
+                    int pos = 1;
+                }
+                if (vuMark == RelicRecoveryVuMark.CENTER){
+                    int pos = 2;
+                }
+                if (vuMark == RelicRecoveryVuMark.RIGHT){
+                    int pos = 3;
+                }
+                else {
+                    int pos = 0;
+                }
+            }
+            else {
+                telemetry.addData("VuMark", "not visible");
+            }
+            telemetry.update();
+        }
     }
 
-    public void loop(){
-        if (gamepad1.a) {
-            left.setPosition(1);
-        }
-        else{
-            left.setPosition(0);
-        }
+    String format(OpenGLMatrix transformationMatrix) {
+        return (transformationMatrix != null) ? transformationMatrix.formatAsTransform() : "null";
     }
 }
