@@ -28,7 +28,7 @@ public class Practice_TeleOp extends LinearOpMode{
         motorfrontLeft.setDirection(DcMotor.Direction.REVERSE);
         //motorbackLeft.setDirection(DcMotor.Direction.REVERSE);
 
-        double POWER = 0.5;
+        double POWER = 0.8;
 
         waitForStart();
 
