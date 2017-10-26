@@ -15,28 +15,29 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 
-/**
- * Created by lawrencemao on 10/5/17.
- */
+@Autonomous
 
-@Autonomous(name="VuforiaTest", group ="Concept")
+enum State {
+    INITIALIZE, MOVE, CHECK, STOP
+}
 
 public class Auto_Red extends LinearOpMode {
-
-    public static final String TAG = "Vuforia VuMark Sample";
 
     OpenGLMatrix lastLocation = null;
 
     VuforiaLocalizer vuforia;
 
-    @Override public void runOpMode() {
+    @Override
+    public void runOpMode() {
 
         Servo jewel;
         ColorSensor color;
+        State state;
 
-        jewel = hardwareMap.servo.get ("jewel");
+        jewel = hardwareMap.servo.get("jewel");
         color = hardwareMap.colorSensor.get("color");
 
+        //setting up camera and vuforia
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
 
@@ -56,35 +57,30 @@ public class Auto_Red extends LinearOpMode {
         relicTrackables.activate();
 
         jewel.setPosition(1.0);
+
+        RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
+        //Params LEFT CENTER RIGHT into integers
+        if (vuMark != RelicRecoveryVuMark.UNKNOWN) {
+            telemetry.addData("VuMark", "%s visible", vuMark);
+            if (vuMark == RelicRecoveryVuMark.LEFT) {
+                int pos = 1;
+            }
+            if (vuMark == RelicRecoveryVuMark.CENTER) {
+                int pos = 2;
+            }
+            if (vuMark == RelicRecoveryVuMark.RIGHT) {
+                int pos = 3;
+            } else {
+                int pos = 0;
+            }
+        } else {
+            telemetry.addData("VuMark", "not visible");
+        }
+
         while (opModeIsActive()) {
             telemetry.addData("RED: ", color.red());
             telemetry.addData("BLUE: ", color.blue());
 
-            RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
-            if (vuMark != RelicRecoveryVuMark.UNKNOWN) {
-
-                telemetry.addData("VuMark", "%s visible", vuMark);
-                if (vuMark == RelicRecoveryVuMark.LEFT){
-                    int pos = 1;
-                }
-                if (vuMark == RelicRecoveryVuMark.CENTER){
-                    int pos = 2;
-                }
-                if (vuMark == RelicRecoveryVuMark.RIGHT){
-                    int pos = 3;
-                }
-                else {
-                    int pos = 0;
-                }
-            }
-            else {
-                telemetry.addData("VuMark", "not visible");
-            }
-            telemetry.update();
         }
-    }
-
-    String format(OpenGLMatrix transformationMatrix) {
-        return (transformationMatrix != null) ? transformationMatrix.formatAsTransform() : "null";
     }
 }
