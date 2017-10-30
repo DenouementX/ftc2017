@@ -35,11 +35,12 @@ public class Gyro_Program extends LinearOpMode  {
         backleft = hardwareMap.dcMotor.get("backleft");
         backright = hardwareMap.dcMotor.get("backright");
         //Set the encoders
+        /*
         frontleft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         frontright.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backleft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backright.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
+*/
         //Turn robot to 15% power.
         double turnspeed = 0.15;
         sensorGyro = hardwareMap.gyroSensor.get("gyro");
