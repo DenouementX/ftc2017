@@ -3,8 +3,6 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.util.Range;
-import com.qualcomm.robotcore.hardware.HardwareDevice;
 
 /**
  * Created by artembookpro on 03.10.17.
