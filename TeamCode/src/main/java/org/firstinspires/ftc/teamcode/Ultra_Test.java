@@ -13,16 +13,13 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 public class Ultra_Test extends OpMode{
 
-    DcMotor lifting;
     Servo rightservo;
     Servo leftservo;
     public void init(){
-        lifting = hardwareMap.dcMotor.get("frontLeft");
         rightservo = hardwareMap.servo.get("rightservo");
         leftservo = hardwareMap.servo.get("leftservo");
     }
     public void loop(){
-        lifting.setPower(gamepad1.left_stick_y);
         rightservo.setPosition(0.5);
         leftservo.setPosition(0.5);
     }
