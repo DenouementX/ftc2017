@@ -19,7 +19,7 @@ public class TeleOp_Test extends LinearOpMode{
     DcMotor motorfrontRight;
     DcMotor motorbackRight;
 
-    public static double findMax(double[] list){
+    private double findMax(double[] list){
         double max = list[0];
         for (int count = 0; count < list.length; count++){
             if (list[count] > max){
