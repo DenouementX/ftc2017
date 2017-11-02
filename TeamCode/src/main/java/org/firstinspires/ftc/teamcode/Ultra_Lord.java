@@ -23,7 +23,7 @@ public class Ultra_Lord extends OpMode{
     }
     public void loop(){
         lifting.setPower(gamepad1.left_stick_y);
-        rightservo.setPosition();
+        rightservo.setPosition(0.5);
         leftservo.setPosition(gamepad1.right_stick_y);
     }
 }

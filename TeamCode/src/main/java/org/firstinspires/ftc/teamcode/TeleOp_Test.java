@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.sun.tools.javac.code.Attribute;
 
 /**
  * Created by kevinwang on 10/27/17.
@@ -18,6 +19,16 @@ public class TeleOp_Test extends LinearOpMode{
     DcMotor motorfrontRight;
     DcMotor motorbackRight;
 
+    private double findMax(double[] list){
+        double max = list[0];
+        for (int count = 0; count < list.length; count++){
+            if (list[count] > max){
+                max = list[count];
+            }
+        }
+        return max;
+    }
+
     public void runOpMode() throws InterruptedException{
 
         motorfrontLeft = hardwareMap.dcMotor.get("frontLeft");
@@ -29,15 +40,23 @@ public class TeleOp_Test extends LinearOpMode{
         //motorbackLeft.setDirection(DcMotor.Direction.REVERSE);
 
         double POWER = 0.8;
+        double[] listPower = new double[4];
 
         waitForStart();
 
         while(opModeIsActive()) {
 
-            motorfrontLeft.setPower(POWER * (gamepad1.left_stick_y - gamepad1.left_stick_x - gamepad1.right_stick_x) / 3);
-            motorbackLeft.setPower(POWER * (gamepad1.left_stick_y + gamepad1.left_stick_x - gamepad1.right_stick_x) / 3);
-            motorfrontRight.setPower(POWER * (gamepad1.left_stick_y + gamepad1.left_stick_x + gamepad1.right_stick_x) / 3);
-            motorbackRight.setPower(POWER * (gamepad1.left_stick_y - gamepad1.left_stick_x + gamepad1.right_stick_x) / 3);
+            listPower[0]= Math.abs(gamepad1.left_stick_y - gamepad1.left_stick_x - gamepad1.right_stick_x);
+            listPower[1]= Math.abs(gamepad1.left_stick_y + gamepad1.left_stick_x - gamepad1.right_stick_x);
+            listPower[2]= Math.abs(gamepad1.left_stick_y + gamepad1.left_stick_x + gamepad1.right_stick_x);
+            listPower[3]= Math.abs(gamepad1.left_stick_y - gamepad1.left_stick_x + gamepad1.right_stick_x);
+
+            double maxPower = findMax(listPower);
+
+            motorfrontLeft.setPower(POWER * (gamepad1.left_stick_y - gamepad1.left_stick_x - gamepad1.right_stick_x) / 3 / maxPower);
+            motorbackLeft.setPower(POWER * (gamepad1.left_stick_y + gamepad1.left_stick_x - gamepad1.right_stick_x) / 3 / maxPower);
+            motorfrontRight.setPower(POWER * (gamepad1.left_stick_y + gamepad1.left_stick_x + gamepad1.right_stick_x) / 3 / maxPower);
+            motorbackRight.setPower(POWER * (gamepad1.left_stick_y - gamepad1.left_stick_x + gamepad1.right_stick_x) / 3 / maxPower);
 
             if(gamepad1.left_bumper){
 
@@ -60,7 +79,8 @@ public class TeleOp_Test extends LinearOpMode{
                 }
             }
 
-            telemetry.addData("POWER", POWER);
+            telemetry.addData("POWER: ", POWER);
+            telemetry.addData("maxPower: ", maxPower);
         }
     }
 }
