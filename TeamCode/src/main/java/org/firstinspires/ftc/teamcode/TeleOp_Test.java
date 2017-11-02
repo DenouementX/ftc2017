@@ -40,7 +40,7 @@ public class TeleOp_Test extends LinearOpMode{
         //motorbackLeft.setDirection(DcMotor.Direction.REVERSE);
 
         double POWER = 0.8;
-        double[] listPower = new double[3];
+        double[] listPower = new double[4];
 
         waitForStart();
 
