@@ -46,10 +46,10 @@ public class TeleOp_Test extends LinearOpMode{
 
         while(opModeIsActive()) {
 
-            listPower[0]= gamepad1.left_stick_y - gamepad1.left_stick_x - gamepad1.right_stick_x;
-            listPower[1]= gamepad1.left_stick_y + gamepad1.left_stick_x - gamepad1.right_stick_x;
-            listPower[2]= gamepad1.left_stick_y + gamepad1.left_stick_x + gamepad1.right_stick_x;
-            listPower[3]= gamepad1.left_stick_y - gamepad1.left_stick_x + gamepad1.right_stick_x;
+            listPower[0]= Math.abs(gamepad1.left_stick_y - gamepad1.left_stick_x - gamepad1.right_stick_x);
+            listPower[1]= Math.abs(gamepad1.left_stick_y + gamepad1.left_stick_x - gamepad1.right_stick_x);
+            listPower[2]= Math.abs(gamepad1.left_stick_y + gamepad1.left_stick_x + gamepad1.right_stick_x);
+            listPower[3]= Math.abs(gamepad1.left_stick_y - gamepad1.left_stick_x + gamepad1.right_stick_x);
 
             double maxPower = findMax(listPower);
 
