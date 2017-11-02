@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.DcMotor.RunMode;
 import com.qualcomm.robotcore.hardware.GyroSensor;
+import com.qualcomm.hardware.bosch.BNO055IMU;
 
 /**
  * Created by artembookpro on 19.10.17.
@@ -20,6 +21,7 @@ public class Gyro_Program extends LinearOpMode  {
     DcMotor frontright;
     DcMotor backleft;
     DcMotor backright;
+    BNO055IMU imu;
 
     GyroSensor sensorGyro; //configurating GyroSensor
     ModernRoboticsI2cGyro mrGyro; //
@@ -34,13 +36,13 @@ public class Gyro_Program extends LinearOpMode  {
         frontright = hardwareMap.dcMotor.get("frontright");
         backleft = hardwareMap.dcMotor.get("backleft");
         backright = hardwareMap.dcMotor.get("backright");
+        imu = hardwareMap.get(BNO055IMU.class, "imu");
         //Set the encoders
-        /*
         frontleft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         frontright.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backleft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         backright.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-*/
+v
         //Turn robot to 15% power.
         double turnspeed = 0.15;
         sensorGyro = hardwareMap.gyroSensor.get("gyro");
