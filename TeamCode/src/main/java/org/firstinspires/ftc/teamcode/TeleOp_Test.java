@@ -59,27 +59,6 @@ public class TeleOp_Test extends LinearOpMode{
             motorfrontRight.setPower(POWER * (gamepad1.left_stick_y + gamepad1.left_stick_x + gamepad1.right_stick_x) / maxPower);
             motorbackRight.setPower(POWER * (gamepad1.left_stick_y - gamepad1.left_stick_x + gamepad1.right_stick_x) / maxPower);
 
-            if(gamepad1.left_bumper){
-
-                POWER = POWER + 0.05;
-
-                if(POWER > 1){
-
-                    POWER = 1;
-                }
-            }
-
-            if(gamepad1.right_bumper){
-
-                POWER = POWER - 0.05;
-
-                if(POWER < 0){
-
-                    POWER = 0;
-
-                }
-            }
-
             telemetry.addData("POWER: ", POWER);
             telemetry.addData("maxPower: ", maxPower);
 
