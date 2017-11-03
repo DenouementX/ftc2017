@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.util.Range;
 import com.sun.tools.javac.code.Attribute;
 
 /**
@@ -39,7 +40,7 @@ public class TeleOp_Test extends LinearOpMode{
         motorfrontLeft.setDirection(DcMotor.Direction.REVERSE);
         //motorbackLeft.setDirection(DcMotor.Direction.REVERSE);
 
-        double POWER = 0.8;
+        double POWER = Range.clip(Math.max(Math.sqrt(Math.pow(gamepad1.left_stick_x, 2) + Math.pow(gamepad1.left_stick_y, 2)), Math.abs(gamepad1.right_stick_x)), -1, 1);
         double[] listPower = new double[4];
 
         waitForStart();
@@ -53,34 +54,14 @@ public class TeleOp_Test extends LinearOpMode{
 
             double maxPower = findMax(listPower);
 
-            motorfrontLeft.setPower(POWER * (gamepad1.left_stick_y - gamepad1.left_stick_x - gamepad1.right_stick_x) / 3 / maxPower);
-            motorbackLeft.setPower(POWER * (gamepad1.left_stick_y + gamepad1.left_stick_x - gamepad1.right_stick_x) / 3 / maxPower);
-            motorfrontRight.setPower(POWER * (gamepad1.left_stick_y + gamepad1.left_stick_x + gamepad1.right_stick_x) / 3 / maxPower);
-            motorbackRight.setPower(POWER * (gamepad1.left_stick_y - gamepad1.left_stick_x + gamepad1.right_stick_x) / 3 / maxPower);
-
-            if(gamepad1.left_bumper){
-
-                POWER = POWER + 0.05;
-
-                if(POWER > 1){
-
-                    POWER = 1;
-                }
-            }
-
-            if(gamepad1.right_bumper){
-
-                POWER = POWER - 0.05;
-
-                if(POWER < 0){
-
-                    POWER = 0;
-
-                }
-            }
+            motorfrontLeft.setPower(POWER * (gamepad1.left_stick_y - gamepad1.left_stick_x - gamepad1.right_stick_x) / maxPower);
+            motorbackLeft.setPower(POWER * (gamepad1.left_stick_y + gamepad1.left_stick_x - gamepad1.right_stick_x) / maxPower);
+            motorfrontRight.setPower(POWER * (gamepad1.left_stick_y + gamepad1.left_stick_x + gamepad1.right_stick_x) / maxPower);
+            motorbackRight.setPower(POWER * (gamepad1.left_stick_y - gamepad1.left_stick_x + gamepad1.right_stick_x) / maxPower);
 
             telemetry.addData("POWER: ", POWER);
             telemetry.addData("maxPower: ", maxPower);
+
         }
     }
 }

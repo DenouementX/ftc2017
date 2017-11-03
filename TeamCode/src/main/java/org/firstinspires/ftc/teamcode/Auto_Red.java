@@ -1,27 +1,75 @@
-/**
 package org.firstinspires.ftc.teamcode;
 
-// Import Statements
+//main
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.ColorSensor;
+import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
-@<span class="pl-smi">com.qualcomm.robotcore.eventloop.opmode.TeleOp(<span class="pl-c1">name</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"Our Linear Code</span><span class="pl-pds">"</span></span>, <span class="pl-c1">group</span><span class="pl-k">=</span><span class="pl-s"><span class="pl-pds">"</span>Group Name<span class="pl-pds">"</span></span>)</span>
-public class YourClassName extends LinearOpMode {
-    // Variable Declaration Code
+//vuforia portion
+import org.firstinspires.ftc.robotcore.external.ClassFactory;
+import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
+import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
+import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 
-    // Helper Function Code
+@Autonomous
+
+public class Auto_Red extends LinearOpMode{
+
+    Servo jewel;
+    ColorSensor color;
+    DcMotor LF;
+    DcMotor LB;
+    DcMotor RF;
+    DcMotor RB;
+    int position = 0;
+    VuforiaLocalizer vuforia;
 
     @Override
     public void runOpMode() throws InterruptedException {
+        jewel = hardwareMap.servo.get("jewel");
+        color = hardwareMap.colorSensor.get("color");
+        LF = hardwareMap.dcMotor.get("LF");
+        LB = hardwareMap.dcMotor.get("LB");
+        RF = hardwareMap.dcMotor.get("RF");
+        RB = hardwareMap.dcMotor.get("RB");
 
-        // Initialization Code
+        //setting up camera and vuforia
+        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+        VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
 
-        while (opModeIsActive()) {
+        parameters.vuforiaLicenseKey = "AXzW9CD/////AAAAGTPAtr9HRUXZmowtd9p0AUwuXiBVONS/c5x1q8OvjMrQ8/XJGxEp0TP9Kl8PvqSzeXOWIvVa3AeB6MyAQboyW/Pgd/c4a4U/VBs1ouUsVBkEdbaq1iY7RR0cjYr3eLwEt6tmI37Ugbwrd5gmxYvOBQkGqzpbg2U2bVLycc5PkOixu7PqPqaINGZYSlvUzEMAenLOCxZFpsayuCPRbWz6Z9UJfLeAbfAPmmDYoKNXRFll8/jp5Ie7iAhSQgfFggWwyiqMRCFA3GPTsOJS4H1tSiGlMjVzbJnkusPKXfJ0dK3OH9u7ox9ESpi91T0MemXw3nn+/6QRvjGtgFH+wMDuQX7ta89+yW+wqdXX9ZQu8BzY";
 
-            // Main Loop Code
+        parameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;
+        this.vuforia = ClassFactory.createVuforiaLocalizer(parameters);
 
-            idle();
+        VuforiaTrackables relicTrackables = this.vuforia.loadTrackablesFromAsset("RelicVuMark");
+        VuforiaTrackable relicTemplate = relicTrackables.get(0);
+        relicTemplate.setName("relicVuMarkTemplate");
+
+        RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
+        //Params LEFT CENTER RIGHT into integers
+        while (vuMark != RelicRecoveryVuMark.LEFT || vuMark != RelicRecoveryVuMark.CENTER || vuMark != RelicRecoveryVuMark.RIGHT) {
+            telemetry.addData("VuMark", "not visible");
         }
 
-        // Termination Code
+        if (vuMark == RelicRecoveryVuMark.LEFT) {
+            position = 1;
+        }
+        if (vuMark == RelicRecoveryVuMark.CENTER) {
+            position = 2;
+        }
+        if (vuMark == RelicRecoveryVuMark.RIGHT) {
+            position = 3;
+        }
+
+        telemetry.addData("VuMark", "%s visible", vuMark);
+        telemetry.addData("RED: ", color.red());
+        telemetry.addData("BLUE: ", color.blue());
+        telemetry.addData("Something: ", position);
+        telemetry.addData("Pos: ", position);
     }
 }
- **/
