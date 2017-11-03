@@ -20,16 +20,6 @@ public class TeleOp_Test extends LinearOpMode{
     DcMotor motorfrontRight;
     DcMotor motorbackRight;
 
-    private double findMax(double[] list){
-        double max = list[0];
-        for (int count = 0; count < list.length; count++){
-            if (list[count] > max){
-                max = list[count];
-            }
-        }
-        return max;
-    }
-
     public void runOpMode() throws InterruptedException{
 
         motorfrontLeft = hardwareMap.dcMotor.get("frontLeft");
@@ -40,19 +30,17 @@ public class TeleOp_Test extends LinearOpMode{
         motorfrontLeft.setDirection(DcMotor.Direction.REVERSE);
         //motorbackLeft.setDirection(DcMotor.Direction.REVERSE);
 
-        double POWER = Range.clip(Math.max(Math.sqrt(Math.pow(gamepad1.left_stick_x, 2) + Math.pow(gamepad1.left_stick_y, 2)), Math.abs(gamepad1.right_stick_x)), -1, 1);
-        double[] listPower = new double[4];
+        double POWER = Range.clip(Math.max(Range.clip(Math.sqrt(Math.pow(gamepad1.left_stick_x, 2) + Math.pow(gamepad1.left_stick_y, 2)), -1, 1),
+                Math.abs(gamepad1.right_stick_x)), -1, 1);
 
         waitForStart();
 
         while(opModeIsActive()) {
 
-            listPower[0]= Math.abs(gamepad1.left_stick_y - gamepad1.left_stick_x - gamepad1.right_stick_x);
-            listPower[1]= Math.abs(gamepad1.left_stick_y + gamepad1.left_stick_x - gamepad1.right_stick_x);
-            listPower[2]= Math.abs(gamepad1.left_stick_y + gamepad1.left_stick_x + gamepad1.right_stick_x);
-            listPower[3]= Math.abs(gamepad1.left_stick_y - gamepad1.left_stick_x + gamepad1.right_stick_x);
-
-            double maxPower = findMax(listPower);
+            double maxPower = Math.max(Math.max(Math.abs(gamepad1.left_stick_y - gamepad1.left_stick_x - gamepad1.right_stick_x),
+                    Math.abs(gamepad1.left_stick_y + gamepad1.left_stick_x - gamepad1.right_stick_x)),
+                    Math.max(Math.abs(gamepad1.left_stick_y + gamepad1.left_stick_x + gamepad1.right_stick_x),
+                            Math.abs(gamepad1.left_stick_y - gamepad1.left_stick_x + gamepad1.right_stick_x)));
 
             motorfrontLeft.setPower(POWER * (gamepad1.left_stick_y - gamepad1.left_stick_x - gamepad1.right_stick_x) / maxPower);
             motorbackLeft.setPower(POWER * (gamepad1.left_stick_y + gamepad1.left_stick_x - gamepad1.right_stick_x) / maxPower);
