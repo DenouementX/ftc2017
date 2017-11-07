@@ -68,6 +68,16 @@ public class UltraLord_Drive extends LinearOpMode{
             motorfrontRight.setPower(POWER * (gamepad1.left_stick_y + gamepad1.left_stick_x + gamepad1.right_stick_x) / maxPower);
             motorbackRight.setPower(POWER * (gamepad1.left_stick_y - gamepad1.left_stick_x + gamepad1.right_stick_x) / maxPower);
 
+            lServo.setPosition(gamepad1.right_stick_y);
+            rServo.setPosition(gamepad1.right_stick_y);
+
+            if (gamepad1.left_trigger > gamepad1.right_trigger){
+                lift.setPower(gamepad1.left_trigger);
+            }
+            else {
+                lift.setPower(-1 * gamepad1.right_trigger);
+            }
+
             telemetry.addData("POWER: ", POWER);
             telemetry.addData("maxPower: ", maxPower);
 
