@@ -11,9 +11,11 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp
 public class ultraLord_test extends OpMode{
+
     DcMotor lift;
     Servo rServo;
     Servo lServo;
+
     double lPos;
     double rPos;
     double lift_pos;
