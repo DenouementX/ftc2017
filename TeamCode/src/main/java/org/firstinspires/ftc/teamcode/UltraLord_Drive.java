@@ -11,17 +11,25 @@ import com.sun.tools.javac.code.Attribute;
 import com.qualcomm.robotcore.hardware.DcMotor.RunMode;
 
 /**
- * Created by kevinwang on 10/27/17.
+ * Created by kevinwang on 11/7/17.
  */
 
-@TeleOp(name = "TeleOp Test")
+@TeleOp(name = "UltraLord Drive")
 
-public class TeleOp_Test extends LinearOpMode{
+public class UltraLord_Drive extends LinearOpMode{
 
     DcMotor motorfrontLeft;
     DcMotor motorbackLeft;
     DcMotor motorfrontRight;
     DcMotor motorbackRight;
+
+    DcMotor lift;
+    Servo rServo;
+    Servo lServo;
+
+    double lPos;
+    double rPos;
+    double lift_pos;
 
     public void runOpMode() throws InterruptedException{
 
@@ -37,6 +45,12 @@ public class TeleOp_Test extends LinearOpMode{
 
         motorfrontLeft.setDirection(DcMotor.Direction.REVERSE);
         //motorbackLeft.setDirection(DcMotor.Direction.REVERSE);
+
+        lift = hardwareMap.dcMotor.get("lift");
+        lServo = hardwareMap.servo.get("lS");
+        rServo = hardwareMap.servo.get("rS");
+
+        lServo.setDirection(Servo.Direction.REVERSE);
 
         waitForStart();
 
