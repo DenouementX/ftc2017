@@ -3,19 +3,17 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.Range;
 import com.sun.tools.javac.code.Attribute;
-import com.qualcomm.robotcore.hardware.DcMotor.RunMode;
 
 /**
- * Created by kevinwang on 10/27/17.
+ * Created by kevinwang on 11/6/17.
  */
 
-@TeleOp(name = "TeleOp Test")
+@TeleOp(name = "TeleOp Encoders")
 
-public class TeleOp_Test extends LinearOpMode{
+public class TeleOp_Encoders extends LinearOpMode{
 
     DcMotor motorfrontLeft;
     DcMotor motorbackLeft;
@@ -29,10 +27,10 @@ public class TeleOp_Test extends LinearOpMode{
         motorfrontRight = hardwareMap.dcMotor.get("frontRight");
         motorbackRight = hardwareMap.dcMotor.get("backRight");
 
-        motorfrontLeft.setMode(RunMode.RUN_USING_ENCODER);
-        motorbackLeft.setMode(RunMode.RUN_USING_ENCODER);
-        motorfrontRight.setMode(RunMode.RUN_USING_ENCODER);
-        motorbackRight.setMode(RunMode.RUN_USING_ENCODER);
+        motorfrontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorbackLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorfrontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorbackRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         motorfrontLeft.setDirection(DcMotor.Direction.REVERSE);
         //motorbackLeft.setDirection(DcMotor.Direction.REVERSE);
