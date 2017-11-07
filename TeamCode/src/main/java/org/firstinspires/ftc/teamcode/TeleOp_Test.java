@@ -27,6 +27,11 @@ public class TeleOp_Test extends LinearOpMode{
         motorfrontRight = hardwareMap.dcMotor.get("frontRight");
         motorbackRight = hardwareMap.dcMotor.get("backRight");
 
+        motorfrontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorbackLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorfrontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorbackRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
         motorfrontLeft.setDirection(DcMotor.Direction.REVERSE);
         //motorbackLeft.setDirection(DcMotor.Direction.REVERSE);
 
