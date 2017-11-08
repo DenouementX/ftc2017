@@ -51,8 +51,6 @@ public class TeleOp_358 extends LinearOpMode {
             fR.setPower(POWER * (gamepad1.left_stick_y + gamepad1.left_stick_x + gamepad1.right_stick_x) / maxPower);
             bR.setPower(POWER * (gamepad1.left_stick_y - gamepad1.left_stick_x + gamepad1.right_stick_x) / maxPower);
 
-            left.setPosition(0);
-            right.setPosition(0);
             lS.setPower(0);
 
             if(gamepad1.right_bumper){
