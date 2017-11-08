@@ -52,6 +52,7 @@ public class TeleOp_358 extends LinearOpMode {
 
             left.setPosition(0);
             right.setPosition(0);
+            lS.setPower(0);
 
             while(gamepad1.right_bumper){
                 lS.setPower(0.5);
