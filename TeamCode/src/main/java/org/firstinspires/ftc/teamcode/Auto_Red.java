@@ -25,8 +25,8 @@ public class Auto_Red extends LinearOpMode {
     DcMotor LB;
     DcMotor RF;
     DcMotor RB;
-    int dPosition = 0;
-    int oPosition = 1;
+    double dPosition = 0.55;
+    double oPosition = 0.05;
 
     public void runOpMode() throws InterruptedException {
         jewel = hardwareMap.servo.get("jewel");
