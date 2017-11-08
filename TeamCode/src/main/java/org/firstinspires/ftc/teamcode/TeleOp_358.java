@@ -60,7 +60,7 @@ public class TeleOp_358 extends LinearOpMode {
             }
 
             if(gamepad1.left_bumper){
-                lS.setPower(0.5);
+                lS.setPower(-0.5);
             }
 
             if((!gamepad1.left_bumper) && (!gamepad1.right_bumper)){
