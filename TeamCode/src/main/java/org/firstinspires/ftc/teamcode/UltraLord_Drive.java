@@ -11,17 +11,25 @@ import com.sun.tools.javac.code.Attribute;
 import com.qualcomm.robotcore.hardware.DcMotor.RunMode;
 
 /**
- * Created by kevinwang on 10/27/17.
+ * Created by kevinwang on 11/7/17.
  */
 
-@TeleOp(name = "TeleOp Test")
+@TeleOp(name = "UltraLord Drive")
 
-public class TeleOp_Test extends LinearOpMode{
+public class UltraLord_Drive extends LinearOpMode{
 
     DcMotor motorfrontLeft;
     DcMotor motorbackLeft;
     DcMotor motorfrontRight;
     DcMotor motorbackRight;
+
+    DcMotor lift;
+    Servo rServo;
+    Servo lServo;
+
+    double lPos;
+    double rPos;
+    double lift_pos;
 
     public void runOpMode() throws InterruptedException{
 
@@ -38,6 +46,12 @@ public class TeleOp_Test extends LinearOpMode{
         motorfrontLeft.setDirection(DcMotor.Direction.REVERSE);
         //motorbackLeft.setDirection(DcMotor.Direction.REVERSE);
 
+        lift = hardwareMap.dcMotor.get("lift");
+        lServo = hardwareMap.servo.get("lS");
+        rServo = hardwareMap.servo.get("rS");
+
+        lServo.setDirection(Servo.Direction.REVERSE);
+
         waitForStart();
 
         while(opModeIsActive()) {
@@ -53,6 +67,16 @@ public class TeleOp_Test extends LinearOpMode{
             motorbackLeft.setPower(POWER * (gamepad1.left_stick_y + gamepad1.left_stick_x - gamepad1.right_stick_x) / maxPower);
             motorfrontRight.setPower(POWER * (gamepad1.left_stick_y + gamepad1.left_stick_x + gamepad1.right_stick_x) / maxPower);
             motorbackRight.setPower(POWER * (gamepad1.left_stick_y - gamepad1.left_stick_x + gamepad1.right_stick_x) / maxPower);
+
+            lServo.setPosition(gamepad1.right_stick_y);
+            rServo.setPosition(gamepad1.right_stick_y);
+
+            if (gamepad1.left_trigger > gamepad1.right_trigger){
+                lift.setPower(gamepad1.left_trigger);
+            }
+            else {
+                lift.setPower(-1 * gamepad1.right_trigger);
+            }
 
             telemetry.addData("POWER: ", POWER);
             telemetry.addData("maxPower: ", maxPower);
