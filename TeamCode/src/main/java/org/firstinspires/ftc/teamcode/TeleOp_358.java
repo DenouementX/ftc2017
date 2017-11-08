@@ -33,12 +33,13 @@ public class TeleOp_358 extends LinearOpMode {
         right = hardwareMap.servo.get("right");
 
         fL.setDirection(DcMotor.Direction.REVERSE);
+        left.setDirection(Servo.Direction.REVERSE);
 
         waitForStart();
 
         while(opModeIsActive()) {
 
-            double POWER = Range.clip(Math.max(Range.clip(Math.sqrt(Math.pow(gamepad1.left_stick_x, 2) + Math.pow(gamepad1.left_stick_y, 2)), -1, 1),
+            double POWER = -1 * Range.clip(Math.max(Range.clip(Math.sqrt(Math.pow(gamepad1.left_stick_x, 2) + Math.pow(gamepad1.left_stick_y, 2)), -1, 1),
                     Math.abs(gamepad1.right_stick_x)), -1, 1);
             double maxPower = Math.max(Math.max(Math.abs(gamepad1.left_stick_y - gamepad1.left_stick_x - gamepad1.right_stick_x),
                     Math.abs(gamepad1.left_stick_y + gamepad1.left_stick_x - gamepad1.right_stick_x)),
