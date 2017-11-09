@@ -21,6 +21,7 @@ public class TeleOp_358 extends LinearOpMode {
     DcMotor lS;
     Servo left;
     Servo right;
+    Servo arm;
 
     public void runOpMode() throws InterruptedException{
 
@@ -31,6 +32,7 @@ public class TeleOp_358 extends LinearOpMode {
         lS = hardwareMap.dcMotor.get("linearSlide");
         left = hardwareMap.servo.get("left");
         right = hardwareMap.servo.get("right");
+        arm= hardwareMap.servo.get("arm");
 
         fL.setDirection(DcMotor.Direction.REVERSE);
         left.setDirection(Servo.Direction.REVERSE);
@@ -38,6 +40,8 @@ public class TeleOp_358 extends LinearOpMode {
         waitForStart();
 
         while(opModeIsActive()) {
+            //auto-servo is held in place
+            arm.setPosition(0.05);
 
             double POWER = -1 * Range.clip(Math.max(Range.clip(Math.sqrt(Math.pow(gamepad1.left_stick_x, 2) + Math.pow(gamepad1.left_stick_y, 2)), -1, 1),
                     Math.abs(gamepad1.right_stick_x)), -1, 1);
@@ -61,9 +65,13 @@ public class TeleOp_358 extends LinearOpMode {
                 lS.setPower(-0.5);
             }
 
-            while(gamepad1.a){
+            if(gamepad1.a){
                 left.setPosition(0.5);
                 right.setPosition(0.5);
+            }
+            if(!gamepad1.a){
+                left.setPosition(0);
+                right.setPosition(0);
             }
         }
     }
