@@ -58,17 +58,16 @@ public class TeleOp_Encoders extends LinearOpMode {
             fR.setPower(POWER * (gamepad1.left_stick_y + gamepad1.left_stick_x + gamepad1.right_stick_x) / maxPower);
             bR.setPower(POWER * (gamepad1.left_stick_y - gamepad1.left_stick_x + gamepad1.right_stick_x) / maxPower);
 
-            lS.setPower(0);
-
-            if(gamepad1.right_bumper){
+            if(gamepad1.left_bumper && gamepad1.right_bumper){
+                lS.setPower(0);
+            }
+            else if(gamepad1.right_bumper){
                 lS.setPower(0.5);
             }
-
-            if(gamepad1.left_bumper){
+            else if(gamepad1.left_bumper){
                 lS.setPower(-0.5);
             }
-
-            if((!gamepad1.left_bumper) && (!gamepad1.right_bumper)){
+            else{
                 lS.setPower(0);
             }
 
