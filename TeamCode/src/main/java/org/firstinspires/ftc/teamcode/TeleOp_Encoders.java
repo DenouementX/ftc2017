@@ -75,7 +75,7 @@ public class TeleOp_Encoders extends LinearOpMode {
                 left.setPosition(1);
                 right.setPosition(1);
             }
-            if(!gamepad1.a){
+            else{
                 left.setPosition(0);
                 right.setPosition(0);
             }
