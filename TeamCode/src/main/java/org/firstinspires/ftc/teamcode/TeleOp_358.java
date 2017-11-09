@@ -36,6 +36,7 @@ public class TeleOp_358 extends LinearOpMode {
 
         fL.setDirection(DcMotor.Direction.REVERSE);
         left.setDirection(Servo.Direction.REVERSE);
+        bL.setDirection(DcMotor.Direction.REVERSE);
 
         waitForStart();
 
