@@ -26,12 +26,12 @@ public class Auto_Red extends LinearOpMode {
     double oPosition = 0.05;
 
     public void runOpMode() throws InterruptedException {
-        jewel = hardwareMap.servo.get("jewel");
-        color = hardwareMap.colorSensor.get("color");
-        LF = hardwareMap.dcMotor.get("LF");
-        LB = hardwareMap.dcMotor.get("LB");
-        RF = hardwareMap.dcMotor.get("RF");
-        RB = hardwareMap.dcMotor.get("RB");
+        jewel = hardwareMap.servo.get("jewel");         //0 5
+        color = hardwareMap.colorSensor.get("color");   //0 5 (I2C)
+        LF = hardwareMap.dcMotor.get("LF");             //1 2
+        LB = hardwareMap.dcMotor.get("LB");             //2 2
+        RF = hardwareMap.dcMotor.get("RF");             //0 2
+        RB = hardwareMap.dcMotor.get("RB");             //3 2
 
         LF.setDirection(DcMotor.Direction.REVERSE);
         LB.setDirection(DcMotor.Direction.REVERSE);
