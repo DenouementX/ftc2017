@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 /**
@@ -26,13 +27,31 @@ public class KPSS_Parking extends OpMode {
         LB = hardwareMap.dcMotor.get("LB");
         RF = hardwareMap.dcMotor.get("RF");
         RB = hardwareMap.dcMotor.get("RB");
-    }
-    @Override
-    public void loop() {
-        LF.setTargetPosition(14400);
-        LB.setTargetPosition(14400);
-        RF.setTargetPosition(14400);
-        RB.setTargetPosition(14400);
-    }
+
+        LF.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        LB.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        RF.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        RB.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        LF.setTargetPosition(11200);
+        LB.setTargetPosition(11200);
+        RF.setTargetPosition(11200);
+        RB.setTargetPosition(11200);
+
+        LB.setDirection(DcMotor.Direction.REVERSE);
+        RF.setDirection(DcMotor.Direction.REVERSE);
+
+        LF.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        LB.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        RF.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        RB.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+while (LF.isBusy() && LB.isBusy() && RF.isBusy() && RB.isBusy()){
+
 }
+        LF.setPower(0);
+        LB.setPower(0);
+        RF.setPower(0);
+        RB.setPower(0);
+    }
+
 }
