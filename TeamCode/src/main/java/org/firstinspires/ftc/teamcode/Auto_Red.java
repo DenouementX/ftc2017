@@ -16,59 +16,69 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 public class Auto_Red extends LinearOpMode {
 
-    Servo jewel;
+    DcMotor fL;
+    DcMotor bL;
+    DcMotor fR;
+    DcMotor bR;
+    DcMotor lS;
+    Servo left;
+    Servo right;
+    Servo arm;
     ColorSensor color;
-    DcMotor LF;
-    DcMotor LB;
-    DcMotor RF;
-    DcMotor RB;
-    double dPosition = 0.55;
-    double oPosition = 0.05;
+
+    double dPosition = 0.3;
+    double oPosition = 1;
 
     public void runOpMode() throws InterruptedException {
-        jewel = hardwareMap.servo.get("jewel");         //0 5
-        color = hardwareMap.colorSensor.get("color");   //0 5 (I2C)
-        LF = hardwareMap.dcMotor.get("LF");             //1 2
-        LB = hardwareMap.dcMotor.get("LB");             //2 2
-        RF = hardwareMap.dcMotor.get("RF");             //0 2
-        RB = hardwareMap.dcMotor.get("RB");             //3 2
 
-        LF.setDirection(DcMotor.Direction.REVERSE);
-        LB.setDirection(DcMotor.Direction.REVERSE);
+        fL = hardwareMap.dcMotor.get("frontLeft");
+        bL = hardwareMap.dcMotor.get("backLeft");
+        fR = hardwareMap.dcMotor.get("frontRight");
+        bR = hardwareMap.dcMotor.get("backRight");
+        lS = hardwareMap.dcMotor.get("linearSlide");
+        left = hardwareMap.servo.get("left");
+        right = hardwareMap.servo.get("right");
+        arm = hardwareMap.servo.get("arm");
+        color = hardwareMap.colorSensor.get("color");
+
+        fL.setDirection(DcMotor.Direction.REVERSE);
+        left.setDirection(Servo.Direction.REVERSE);
+        bL.setDirection(DcMotor.Direction.REVERSE);
 
         double POWER = .5;
+
+        arm.setPosition(dPosition);
+
+        telemetry.addData("Red: ", color.red());
+        telemetry.addData("Blue: ", color.blue());
 
         waitForStart();
 
         while (opModeIsActive()) {
 
-            jewel.setPosition(dPosition);
-
             if (color.blue()/2 > color.red()) {
-                jewel.setPosition(oPosition);
-                LF.setPower(POWER);
-                LB.setPower(POWER);
-                RF.setPower(POWER);
-                RB.setPower(POWER);
-                sleep(1000);
-                jewel.setPosition(dPosition);
+                fL.setPower(POWER);
+                bL.setPower(POWER);
+                fR.setPower(POWER);
+                bR.setPower(POWER);
+                sleep(100);
+                arm.setPosition(oPosition);
             }
 
             if (color.blue() < color.red()/2) {
-                jewel.setPosition(oPosition);
-                LF.setPower(-POWER);
-                LB.setPower(-POWER);
-                RF.setPower(-POWER);
-                RB.setPower(-POWER);
-                sleep(1000);
-                jewel.setPosition(dPosition);
+                fL.setPower(-POWER);
+                bL.setPower(-POWER);
+                fR.setPower(-POWER);
+                bR.setPower(-POWER);
+                sleep(100);
+                arm.setPosition(oPosition);
             }
 
             else{
-                LF.setPower(0);
-                LB.setPower(0);
-                RF.setPower(0);
-                RB.setPower(0);
+                fL.setPower(0);
+                bL.setPower(0);
+                fR.setPower(0);
+                bR.setPower(0);
             }
 
         }

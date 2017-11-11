@@ -33,21 +33,22 @@ public class KPSS_Parking extends OpMode {
         RF.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         RB.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
+        LB.setDirection(DcMotor.Direction.REVERSE);
+        RF.setDirection(DcMotor.Direction.REVERSE);
+
         LF.setTargetPosition(11200);
         LB.setTargetPosition(11200);
         RF.setTargetPosition(11200);
         RB.setTargetPosition(11200);
-
-        LB.setDirection(DcMotor.Direction.REVERSE);
-        RF.setDirection(DcMotor.Direction.REVERSE);
-
+    }
+    public void loop() {
         LF.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         LB.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         RF.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         RB.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-while (LF.isBusy() && LB.isBusy() && RF.isBusy() && RB.isBusy()){
+        while (LF.isBusy() && LB.isBusy() && RF.isBusy() && RB.isBusy()) {
 
-}
+        }
         LF.setPower(0);
         LB.setPower(0);
         RF.setPower(0);
