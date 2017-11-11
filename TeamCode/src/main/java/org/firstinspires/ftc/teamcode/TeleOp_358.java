@@ -61,19 +61,19 @@ public class TeleOp_358 extends LinearOpMode {
 
             lS.setPower(0);
 
-            if(gamepad1.right_bumper){
+            if(gamepad2.right_bumper){
                 lS.setPower(0.5);
             }
 
-            if(gamepad1.left_bumper){
+            if(gamepad2.left_bumper){
                 lS.setPower(-0.5);
             }
 
-            if(gamepad1.a){
+            if(gamepad2.a){
                 left.setPosition(1);
                 right.setPosition(1);
             }
-            if(!gamepad1.a){
+            if(!gamepad2.a){
                 left.setPosition(0);
                 right.setPosition(0);
             }
