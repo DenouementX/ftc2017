@@ -48,6 +48,8 @@ public class Auto_Blue extends LinearOpMode {
         double POWER = .5;
 
         arm.setPosition(dPosition);
+        left.setPosition(0);
+        right.setPosition(0);
 
         telemetry.addData("Red: ", color.red());
         telemetry.addData("Blue: ", color.blue());
@@ -61,7 +63,7 @@ public class Auto_Blue extends LinearOpMode {
                 bL.setPower(-POWER);
                 fR.setPower(-POWER);
                 bR.setPower(-POWER);
-                sleep(100);
+                sleep(200);
                 arm.setPosition(oPosition);
             }
 
@@ -70,7 +72,7 @@ public class Auto_Blue extends LinearOpMode {
                 bL.setPower(POWER);
                 fR.setPower(POWER);
                 bR.setPower(POWER);
-                sleep(100);
+                sleep(200);
                 arm.setPosition(oPosition);
             }
 
