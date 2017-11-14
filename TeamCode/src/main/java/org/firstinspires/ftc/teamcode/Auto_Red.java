@@ -25,9 +25,13 @@ public class Auto_Red extends LinearOpMode {
     Servo right;
     Servo arm;
     ColorSensor color;
+    state state358;
 
     double dPosition = 0.3;
     double oPosition = 1;
+    enum state {
+        JEWEL, SAFEZONE, GLYPH
+    }
 
     public void runOpMode() throws InterruptedException {
 
@@ -40,6 +44,7 @@ public class Auto_Red extends LinearOpMode {
         right = hardwareMap.servo.get("right");
         arm = hardwareMap.servo.get("arm");
         color = hardwareMap.colorSensor.get("color");
+        state358 = state.JEWEL;
 
         fL.setDirection(DcMotor.Direction.REVERSE);
         left.setDirection(Servo.Direction.REVERSE);
@@ -51,36 +56,56 @@ public class Auto_Red extends LinearOpMode {
         left.setPosition(0);
         right.setPosition(0);
 
-        telemetry.addData("Red: ", color.red());
-        telemetry.addData("Blue: ", color.blue());
-
         waitForStart();
 
         while (opModeIsActive()) {
+            switch(state358) {
 
-            if (color.blue()/2 > color.red()) {
-                fL.setPower(POWER);
-                bL.setPower(POWER);
-                fR.setPower(POWER);
-                bR.setPower(POWER);
-                sleep(200);
-                arm.setPosition(oPosition);
-            }
+                case JEWEL:
+                    state358 = state.SAFEZONE;
+                    if (color.blue()/2 > color.red()) {
+                        fL.setPower(POWER);
+                        bL.setPower(POWER);
+                        fR.setPower(POWER);
+                        bR.setPower(POWER);
+                        sleep(200);
+                        arm.setPosition(oPosition);
+                    }
 
-            if (color.blue() < color.red()/2) {
-                fL.setPower(-POWER);
-                bL.setPower(-POWER);
-                fR.setPower(-POWER);
-                bR.setPower(-POWER);
-                sleep(200);
-                arm.setPosition(oPosition);
-            }
+                    if (color.blue() < color.red()/2) {
+                        fL.setPower(-POWER);
+                        bL.setPower(-POWER);
+                        fR.setPower(-POWER);
+                        bR.setPower(-POWER);
+                        sleep(200);
+                        arm.setPosition(oPosition);
+                    }
 
-            else{
-                fL.setPower(0);
-                bL.setPower(0);
-                fR.setPower(0);
-                bR.setPower(0);
+                    else{
+                        fL.setPower(0);
+                        bL.setPower(0);
+                        fR.setPower(0);
+                        bR.setPower(0);
+                    }
+                    break;
+
+                case SAFEZONE:
+                    state358 = state.GLYPH;
+                    fL.setPower(POWER);
+                    bL.setPower(POWER);
+                    fR.setPower(POWER);
+                    bR.setPower(POWER);
+                    sleep(100);
+                    break;
+
+                case GLYPH:
+                    fL.setPower(0);
+                    bL.setPower(0);
+                    fR.setPower(0);
+                    bR.setPower(0);
+                    sleep(200);
+                    break;
+
             }
 
         }
