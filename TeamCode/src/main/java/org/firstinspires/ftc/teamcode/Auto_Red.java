@@ -54,7 +54,7 @@ public class Auto_Red extends LinearOpMode {
         right = hardwareMap.servo.get("right");
         arm = hardwareMap.servo.get("arm");
         color = hardwareMap.colorSensor.get("color");
-        state358 = state.DECIPHER;
+        state358 = state.JEWEL;
 
         fL.setDirection(DcMotor.Direction.REVERSE);
         left.setDirection(Servo.Direction.REVERSE);
@@ -89,15 +89,17 @@ public class Auto_Red extends LinearOpMode {
                 //INCOMPLETE: Assign Value to L, M, R perhaps?
                 case DECIPHER:
                     state358 = state.JEWEL;
+
                     RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
                     while (vuMark != RelicRecoveryVuMark.LEFT || vuMark != RelicRecoveryVuMark.CENTER || vuMark !=RelicRecoveryVuMark.RIGHT) {
                         telemetry.addData("VuMark", "not visible");
                     }
                     telemetry.addData("VuMark", "%s visible", vuMark);
+
                     break;
 
                 case JEWEL:
-                    state358 = state.SAFEZONE;
+
                     if (color.blue()/2 > color.red()) {
                         fL.setPower(POWER);
                         bL.setPower(POWER);
@@ -105,6 +107,7 @@ public class Auto_Red extends LinearOpMode {
                         bR.setPower(POWER);
                         sleep(200);
                         arm.setPosition(oPosition);
+                        break;
                     }
 
                     if (color.blue() < color.red()/2) {
@@ -114,6 +117,7 @@ public class Auto_Red extends LinearOpMode {
                         bR.setPower(-POWER);
                         sleep(200);
                         arm.setPosition(oPosition);
+                        break;
                     }
 
                     else {
@@ -121,8 +125,9 @@ public class Auto_Red extends LinearOpMode {
                         bL.setPower(0);
                         fR.setPower(0);
                         bR.setPower(0);
+                        break;
                     }
-                    break;
+                    newState(State.SAFEZONE);
 
                 case SAFEZONE:
                     state358 = state.GLYPH;
