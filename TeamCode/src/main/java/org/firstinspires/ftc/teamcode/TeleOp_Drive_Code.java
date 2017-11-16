@@ -72,7 +72,7 @@ public class TeleOp_Drive_Code extends LinearOpMode{
             double brPower = drive - strafe + rotate;
 
             double POWER = -1 * Range.clip(Math.max(magnitudeLeftStick(gamepad1), Math.abs(rotate)), -1, 1);
-            double
+
         }
     }
 }
