@@ -85,6 +85,18 @@ public class TeleOp_Drive_Code extends LinearOpMode{
             bL.setPower(POWER * blPower / maxPower);
             fR.setPower(POWER * frPower / maxPower);
             bR.setPower(POWER * brPower / maxPower);
+
+            //This will lower the UltraLord if the left bumper is pressed and raise if the right is pressed.
+            //The height will remain the same if both are pressed or neither are.
+            if ((!(gamepad1.right_bumper) && !(gamepad1.left_bumper)) || (gamepad1.right_bumper && gamepad1.left_bumper)){
+                lS.setPower(0);
+            }
+            else if (gamepad1.right_bumper){
+                lS.setPower(0.5);
+            }
+            else if (gamepad1.left_bumper){
+                lS.setPower(-0.5);
+            }
         }
     }
 }
