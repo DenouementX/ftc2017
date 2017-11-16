@@ -33,6 +33,11 @@ public class TeleOp_Drive_Code extends LinearOpMode{
         return Math.sqrt(Math.pow(gamepad.left_stick_x, 2) + Math.pow(gamepad.left_stick_y, 2));
     }
 
+    //This function finds the max value given 4 values.
+    public Double findMax(Double d1, Double d2, Double d3, Double d4){
+        return Math.max(Math.max(d1, d2), Math.max(d3, d4));
+    }
+
     //Run OpMode code.
     public void runOpMode() throws InterruptedException{
 
@@ -71,8 +76,15 @@ public class TeleOp_Drive_Code extends LinearOpMode{
             double frPower = drive + strafe + rotate;
             double brPower = drive - strafe + rotate;
 
+            //Defining the joystick magnitude and maximum power.
             double POWER = -1 * Range.clip(Math.max(magnitudeLeftStick(gamepad1), Math.abs(rotate)), -1, 1);
+            double maxPower = findMax(Math.abs(flPower), Math.abs(blPower), Math.abs(frPower), Math.abs(brPower));
 
+            //Sets the power for all the drive motors.
+            fL.setPower(POWER * flPower / maxPower);
+            bL.setPower(POWER * blPower / maxPower);
+            fR.setPower(POWER * frPower / maxPower);
+            bR.setPower(POWER * brPower / maxPower);
         }
     }
 }
