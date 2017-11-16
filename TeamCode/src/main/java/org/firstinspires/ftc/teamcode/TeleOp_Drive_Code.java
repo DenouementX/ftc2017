@@ -60,7 +60,19 @@ public class TeleOp_Drive_Code extends LinearOpMode{
             //Auto-servo is held in place.
             arm.setPosition(.95);
 
-            double POWER = -1 * Range.clip(Math.max(Range.clip(magnitudeLeftStick(gamepad1), -1, 1), Math.abs(gamepad1.right_stick_x)), -1, 1);
+            //Defining drive, strafe, and rotation power.
+            double drive = gamepad1.left_stick_y;
+            double strafe = gamepad1.left_stick_x;
+            double rotate = gamepad1.right_stick_x;
+
+            //Defining the motor power distribution.
+            double flPower = drive - strafe - rotate;
+            double blPower = drive + strafe - rotate;
+            double frPower = drive + strafe + rotate;
+            double brPower = drive - strafe + rotate;
+
+            double POWER = -1 * Range.clip(Math.max(magnitudeLeftStick(gamepad1), Math.abs(rotate)), -1, 1);
+            double
         }
     }
 }
