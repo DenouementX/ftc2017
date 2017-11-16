@@ -36,15 +36,10 @@ public class AutRedHelper extends LinearOpMode {
     Servo right;
     Servo arm;
     ColorSensor color;
-    state state358;
     VuforiaLocalizer vuforia;
 
     double dPosition = 0.3; // deployed position
     double oPosition = 1; // original (upright) position
-
-    enum state {
-        DECIPHER, JEWEL, SAFEZONE, GLYPH, STOP
-    }
 
     public void runOpMode() throws InterruptedException {
 
@@ -57,7 +52,6 @@ public class AutRedHelper extends LinearOpMode {
         right = hardwareMap.servo.get("right");
         arm = hardwareMap.servo.get("arm");
         color = hardwareMap.colorSensor.get("color");
-        state358 = state.JEWEL;
 
         fL.setDirection(DcMotor.Direction.REVERSE);
         left.setDirection(Servo.Direction.REVERSE);
@@ -69,85 +63,35 @@ public class AutRedHelper extends LinearOpMode {
         left.setPosition(0);
         right.setPosition(0);
 
-        //Setting up Camera and Vuforia
-        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-        VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
-
-        parameters.vuforiaLicenseKey = "AXzW9CD/////AAAAGTPAtr9HRUXZmowtd9p0AUwuXiBVONS/c5x1q8OvjMrQ8/XJGxEp0TP9Kl8PvqSzeXOWIvVa3AeB6MyAQboyW/Pgd/c4a4U/VBs1ouUsVBkEdbaq1iY7RR0cjYr3eLwEt6tmI37Ugbwrd5gmxYvOBQkGqzpbg2U2bVLycc5PkOixu7PqPqaINGZYSlvUzEMAenLOCxZFpsayuCPRbWz6Z9UJfLeAbfAPmmDYoKNXRFll8/jp5Ie7iAhSQgfFggWwyiqMRCFA3GPTsOJS4H1tSiGlMjVzbJnkusPKXfJ0dK3OH9u7ox9ESpi91T0MemXw3nn+/6QRvjGtgFH+wMDuQX7ta89+yW+wqdXX9ZQu8BzY";
-
-        parameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;
-        this.vuforia = ClassFactory.createVuforiaLocalizer(parameters);
-
-        VuforiaTrackables relicTrackables = this.vuforia.loadTrackablesFromAsset("RelicVuMark");
-        VuforiaTrackable relicTemplate = relicTrackables.get(0);
-        relicTemplate.setName("relicVuMarkTemplate");
-
-        relicTrackables.activate();
-
         waitForStart();
 
         while (opModeIsActive()) {
-            switch(state358) {
 
-                //INCOMPLETE: Assign Value to L, M, R perhaps?
-                case DECIPHER:
-                    state358 = state.JEWEL;
-
-                    RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate);
-                    while (vuMark != RelicRecoveryVuMark.LEFT || vuMark != RelicRecoveryVuMark.CENTER || vuMark !=RelicRecoveryVuMark.RIGHT) {
-                        telemetry.addData("VuMark", "not visible");
-                    }
-                    telemetry.addData("VuMark", "%s visible", vuMark);
-
-                    break;
-
-                case JEWEL:
-                    state358 = state.SAFEZONE;
-                    if (color.blue()/2 > color.red()) {
-                        fL.setPower(POWER);
-                        bL.setPower(POWER);
-                        fR.setPower(POWER);
-                        bR.setPower(POWER);
-                        sleep(200);
-                        //break;
-                    }
-
-                    else if (color.blue() < color.red()/2) {
-                        fL.setPower(-POWER);
-                        bL.setPower(-POWER);
-                        fR.setPower(-POWER);
-                        bR.setPower(-POWER);
-                        sleep(200);
-                        //break;
-                    }
-                    arm.setPosition(oPosition);
-                    break;
-
-                case SAFEZONE:
-                    state358 = state.STOP;
-                    fL.setPower(POWER);
-                    bL.setPower(POWER);
-                    fR.setPower(POWER);
-                    bR.setPower(POWER);
-                    sleep(300);
-                    break;
-
-                case GLYPH:
-                    state358 = state.STOP;
-                    fL.setPower(0);
-                    bL.setPower(0);
-                    fR.setPower(0);
-                    bR.setPower(0);
-                    sleep(200);
-                    break;
-
-                case STOP:
-                    fL.setPower(0);
-                    bL.setPower(0);
-                    fR.setPower(0);
-                    bR.setPower(0);
-
+            if (color.blue()/2 > color.red()) {
+                fL.setPower(POWER);
+                bL.setPower(POWER);
+                fR.setPower(POWER);
+                bR.setPower(POWER);
+                sleep(200);
             }
+
+            if (color.blue() < color.red()/2) {
+                fL.setPower(-POWER);
+                bL.setPower(-POWER);
+                fR.setPower(-POWER);
+                bR.setPower(-POWER);
+                sleep(200);
+            }
+
+            arm.setPosition(oPosition);
+
+            fL.setPower(POWER);
+            bL.setPower(POWER);
+            fR.setPower(POWER);
+            bR.setPower(POWER);
+            sleep(300);
+
+            break;
         }
     }
 }
