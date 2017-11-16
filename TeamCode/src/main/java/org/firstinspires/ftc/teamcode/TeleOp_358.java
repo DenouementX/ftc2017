@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
@@ -24,6 +25,10 @@ public class TeleOp_358 extends LinearOpMode {
     Servo right;
     Servo arm;
     ColorSensor color;
+
+    public Double magnitudeLeftStick(Gamepad gamepad){
+        return Math.sqrt(Math.pow(gamepad.left_stick_x, 2) + Math.pow(gamepad.left_stick_y, 2));
+    }
 
     public void runOpMode() throws InterruptedException{
 
@@ -47,8 +52,7 @@ public class TeleOp_358 extends LinearOpMode {
             //auto-servo is held in place
             arm.setPosition(.95);
 
-            double POWER = -1 * Range.clip(Math.max(Range.clip(Math.sqrt(Math.pow(gamepad1.left_stick_x, 2) + Math.pow(gamepad1.left_stick_y, 2)), -1, 1),
-                    Math.abs(gamepad1.right_stick_x)), -1, 1);
+            double POWER = -1 * Range.clip(Math.max(Range.clip(magnitudeLeftStick(gamepad1), -1, 1), Math.abs(gamepad1.right_stick_x)), -1, 1);
             double maxPower = Math.max(Math.max(Math.abs(gamepad1.left_stick_y - gamepad1.left_stick_x - gamepad1.right_stick_x),
                     Math.abs(gamepad1.left_stick_y + gamepad1.left_stick_x - gamepad1.right_stick_x)),
                     Math.max(Math.abs(gamepad1.left_stick_y + gamepad1.left_stick_x + gamepad1.right_stick_x),
