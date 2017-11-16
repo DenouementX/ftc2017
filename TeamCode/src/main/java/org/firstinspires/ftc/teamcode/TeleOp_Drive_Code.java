@@ -97,6 +97,16 @@ public class TeleOp_Drive_Code extends LinearOpMode{
             else if (gamepad1.left_bumper){
                 lS.setPower(-0.5);
             }
+
+            //This will open the UltraLord if A is pressed down, and open if A is released.
+            if (gamepad1.a){
+                left.setPosition(1);
+                right.setPosition(1);
+            }
+            else if (!gamepad1.a){
+                left.setPosition(0);
+                right.setPosition(0);
+            }
         }
     }
 }
