@@ -73,6 +73,15 @@ public class AutRedHelper extends LinearOpMode {
                 fR.setPower(POWER);
                 bR.setPower(POWER);
                 sleep(200);
+
+                arm.setPosition(oPosition);
+                sleep(200);
+
+                fL.setPower(POWER);
+                bL.setPower(POWER);
+                fR.setPower(POWER);
+                bR.setPower(POWER);
+                sleep(1000);
             }
 
             if (color.blue() < color.red()/2) {
@@ -81,16 +90,14 @@ public class AutRedHelper extends LinearOpMode {
                 fR.setPower(-POWER);
                 bR.setPower(-POWER);
                 sleep(200);
+
+                fL.setPower(POWER);
+                bL.setPower(POWER);
+                fR.setPower(POWER);
+                bR.setPower(POWER);
+                arm.setPosition(oPosition);
+                sleep(1000);
             }
-
-            arm.setPosition(oPosition);
-
-            fL.setPower(POWER);
-            bL.setPower(POWER);
-            fR.setPower(POWER);
-            bR.setPower(POWER);
-            sleep(300);
-
             break;
         }
     }
