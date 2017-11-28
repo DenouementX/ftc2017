@@ -21,6 +21,8 @@ public class TeleOp_358 extends LinearOpMode {
     DcMotor fR;
     DcMotor bR;
     DcMotor lS;
+    DcMotor retract;
+    DcMotor release;
     Servo left;
     Servo right;
     Servo arm;
@@ -32,15 +34,17 @@ public class TeleOp_358 extends LinearOpMode {
 
     public void runOpMode() throws InterruptedException{
 
-        fL = hardwareMap.dcMotor.get("frontLeft");    //2
-        bL = hardwareMap.dcMotor.get("backLeft");     //2
-        fR = hardwareMap.dcMotor.get("frontRight");   //2
-        bR = hardwareMap.dcMotor.get("backRight");    //2
-        lS = hardwareMap.dcMotor.get("linearSlide");  //5
-        left = hardwareMap.servo.get("left");         //2
-        right = hardwareMap.servo.get("right");       //2
-        arm = hardwareMap.servo.get("arm");           //5
-        color = hardwareMap.colorSensor.get("color"); //5
+        fL = hardwareMap.dcMotor.get("frontLeft");    //EH2 - 1
+        bL = hardwareMap.dcMotor.get("backLeft");     //EH2 - 2
+        fR = hardwareMap.dcMotor.get("frontRight");   //EH2 - 0
+        bR = hardwareMap.dcMotor.get("backRight");    //EH2 - 3
+        lS = hardwareMap.dcMotor.get("linearSlide");  //EH5 - 0
+        left = hardwareMap.servo.get("left");         //EH2 - ???
+        right = hardwareMap.servo.get("right");       //EH2 - ???
+        arm = hardwareMap.servo.get("arm");           //EH5 - 0
+        color = hardwareMap.colorSensor.get("color"); //EH5 - 0
+        retract = hardwareMap.dcMotor.get("retract"); //EH5 - 1
+        release = hardwareMap.dcMotor.get("release"); //EH5 - 2
 
         fL.setDirection(DcMotor.Direction.REVERSE);
         left.setDirection(Servo.Direction.REVERSE);
