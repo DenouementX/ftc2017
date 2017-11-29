@@ -78,7 +78,10 @@ public class TeleOp_Drive_Code extends LinearOpMode{
 
             //Defining the joystick magnitude and maximum power.
             double POWER = -1 * Range.clip(Math.max(magnitudeLeftStick(gamepad1), Math.abs(rotate)), -1, 1);
+            telemetry.addData("POWER: ", POWER);
             double maxPower = findMax(Math.abs(flPower), Math.abs(blPower), Math.abs(frPower), Math.abs(brPower));
+            telemetry.addData("maxPower: ", maxPower);
+            telemetry.update();
 
             //Sets the power for all the drive motors.
             fL.setPower(POWER * flPower / maxPower);
