@@ -20,16 +20,16 @@ public class KPSS extends OpMode{
 
     public void init() {
 
-        right = hardwareMap.dcMotor.get ("right");
-        left = hardwareMap.dcMotor.get ("left");
+        right = hardwareMap.dcMotor.get ("retract");
+        left = hardwareMap.dcMotor.get ("release");
         left.setDirection(DcMotorSimple.Direction.REVERSE);
 
     }
     public void loop ()
     {
 
-        float left_power = -gamepad1.left_stick_y;
-        float right_power = -gamepad1.right_stick_y;
+        float left_power = gamepad1.left_stick_y;
+        float right_power = gamepad1.right_stick_y;
 
         left_power = Range.clip(left_power, -1, 1);
         right_power = Range.clip(right_power, -1, 1);
