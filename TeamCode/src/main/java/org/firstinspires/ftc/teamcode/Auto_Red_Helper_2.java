@@ -29,10 +29,10 @@ public class Auto_Red_Helper_2 extends LinearOpMode {
     state state358;
 
     double dPosition = 0.3; // down position
-    double oPosition = 1; // original position
+    double oPosition = 1;   // original position
 
     enum state {
-        JEWEL, STOP, RED, BLUE
+        JEWEL, STOP, RED, BLUE, TURN
     }
 
     public void runOpMode() throws InterruptedException {
@@ -100,13 +100,6 @@ public class Auto_Red_Helper_2 extends LinearOpMode {
 
                 // use else/if in case neither red nor blue --- go to STOP? or SAFEZONE?
 
-                case STOP:
-                    fL.setPower(0);
-                    bL.setPower(0);
-                    fR.setPower(0);
-                    bR.setPower(0);
-                    sleep(30000);
-
                 case RED:
                     arm.setPosition(oPosition);
                     sleep(2000);
@@ -118,7 +111,12 @@ public class Auto_Red_Helper_2 extends LinearOpMode {
                     bR.setPower(POWER);
                     sleep(1000);
 
-                    state358 = state.STOP;
+                    fL.setPower(0);
+                    bL.setPower(0);
+                    fR.setPower(0);
+                    bR.setPower(0);
+
+                    state358 = state.TURN;
                     break;
 
                 case BLUE:
@@ -132,8 +130,36 @@ public class Auto_Red_Helper_2 extends LinearOpMode {
                     bR.setPower(POWER);
                     sleep(1000);
 
+                    fL.setPower(0);
+                    bL.setPower(0);
+                    fR.setPower(0);
+                    bR.setPower(0);
+
+                    state358 = state.TURN;
+                    break;
+
+                case TURN:
+                    fL.setPower(POWER);
+                    bL.setPower(POWER);
+                    fR.setPower(-POWER);
+                    bR.setPower(-POWER);
+                    sleep(500);
+
+                    fL.setPower(0);
+                    bL.setPower(0);
+                    fR.setPower(0);
+                    bR.setPower(0);
+
                     state358 = state.STOP;
                     break;
+
+                case STOP:
+                    fL.setPower(0);
+                    bL.setPower(0);
+                    fR.setPower(0);
+                    bR.setPower(0);
+                    sleep(30000);
+
             }
         }
     }
