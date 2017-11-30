@@ -74,7 +74,7 @@ public class Auto_Red_Helper_2 extends LinearOpMode {
                         bL.setPower(POWER);
                         fR.setPower(POWER);
                         bR.setPower(POWER);
-                        sleep(100);
+                        sleep(200);
                         fL.setPower(0);
                         bL.setPower(0);
                         fR.setPower(0);
@@ -88,7 +88,7 @@ public class Auto_Red_Helper_2 extends LinearOpMode {
                         bL.setPower(-POWER);
                         fR.setPower(-POWER);
                         bR.setPower(-POWER);
-                        sleep(100);
+                        sleep(200);
                         fL.setPower(0);
                         bL.setPower(0);
                         fR.setPower(0);
@@ -105,12 +105,13 @@ public class Auto_Red_Helper_2 extends LinearOpMode {
                     bL.setPower(0);
                     fR.setPower(0);
                     bR.setPower(0);
+                    sleep(30000);
 
                 case RED:
                     arm.setPosition(oPosition);
                     sleep(2000);
 
-                    wait(2000);
+                    sleep(2000);
                     fL.setPower(POWER);
                     bL.setPower(POWER);
                     fR.setPower(POWER);
@@ -124,7 +125,7 @@ public class Auto_Red_Helper_2 extends LinearOpMode {
                     arm.setPosition(oPosition);
                     sleep(2000);
 
-                    wait(2000);
+                    sleep(2000);
                     fL.setPower(POWER);
                     bL.setPower(POWER);
                     fR.setPower(POWER);
