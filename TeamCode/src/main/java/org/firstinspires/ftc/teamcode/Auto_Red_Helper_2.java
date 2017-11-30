@@ -74,7 +74,7 @@ public class Auto_Red_Helper_2 extends LinearOpMode {
                         bL.setPower(POWER);
                         fR.setPower(POWER);
                         bR.setPower(POWER);
-                        sleep(200);
+                        sleep(100);
                         fL.setPower(0);
                         bL.setPower(0);
                         fR.setPower(0);
@@ -88,7 +88,7 @@ public class Auto_Red_Helper_2 extends LinearOpMode {
                         bL.setPower(-POWER);
                         fR.setPower(-POWER);
                         bR.setPower(-POWER);
-                        sleep(200);
+                        sleep(100);
                         fL.setPower(0);
                         bL.setPower(0);
                         fR.setPower(0);
@@ -108,32 +108,30 @@ public class Auto_Red_Helper_2 extends LinearOpMode {
 
                 case RED:
                     arm.setPosition(oPosition);
-                    sleep(2000); // could this be shorter? because it would return to this state
-                    if (arm.getPosition() == oPosition) {
-                        fL.setPower(POWER); //
-                        bL.setPower(POWER);
-                        fR.setPower(POWER);
-                        bR.setPower(POWER);
-                        sleep(1000); // need to adjust this for exact required time
-                        state358 = state.STOP;
-                        break;
-                    }
+                    sleep(2000);
+
+                    wait(2000);
+                    fL.setPower(POWER);
+                    bL.setPower(POWER);
+                    fR.setPower(POWER);
+                    bR.setPower(POWER);
+                    sleep(1000);
+
+                    state358 = state.STOP;
                     break;
 
                 case BLUE:
                     arm.setPosition(oPosition);
                     sleep(2000);
 
-                    if (arm.getPosition() == oPosition) {
-                        fL.setPower(POWER);
-                        bL.setPower(POWER);
-                        fR.setPower(POWER);
-                        bR.setPower(POWER);
-                        sleep(1000);
-                        state358 = state.STOP;
-                        break;
-                    }
+                    wait(2000);
+                    fL.setPower(POWER);
+                    bL.setPower(POWER);
+                    fR.setPower(POWER);
+                    bR.setPower(POWER);
+                    sleep(1000);
 
+                    state358 = state.STOP;
                     break;
             }
         }
