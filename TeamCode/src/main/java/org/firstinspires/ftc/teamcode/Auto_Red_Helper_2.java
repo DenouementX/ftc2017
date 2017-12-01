@@ -27,6 +27,8 @@ public class Auto_Red_Helper_2 extends LinearOpMode {
     Servo arm;
     ColorSensor color;
     state state358;
+    DcMotor retract;
+    DcMotor release;
 
     double dPosition = 0.3; // down position
     double oPosition = 1;   // original position
@@ -46,6 +48,8 @@ public class Auto_Red_Helper_2 extends LinearOpMode {
         right = hardwareMap.servo.get("right");
         arm = hardwareMap.servo.get("arm");
         color = hardwareMap.colorSensor.get("color");
+        retract = hardwareMap.dcMotor.get("retract");
+        release = hardwareMap.dcMotor.get("release");
         state358 = state.JEWEL;
 
         fL.setDirection(DcMotor.Direction.REVERSE);
@@ -64,12 +68,13 @@ public class Auto_Red_Helper_2 extends LinearOpMode {
 
             telemetry.addData("Going into state: ", state358);
             telemetry.update();
+            release.setPower(-0.01);
 
             switch(state358) {
 
                 case JEWEL:
 
-                    if (color.blue()/2 > color.red()) {
+                    if (color.blue()/2 > color.red()) { //blue: move forward
                         fL.setPower(POWER);
                         bL.setPower(POWER);
                         fR.setPower(POWER);
@@ -83,12 +88,18 @@ public class Auto_Red_Helper_2 extends LinearOpMode {
                         break;
                     }
 
-                    if (color.blue() < color.red()/2) {
-                        fL.setPower(-POWER);
-                        bL.setPower(-POWER);
+                    if (color.blue() < color.red()/2) { //red: turn right and then reset direction
+                        fL.setPower(POWER);
+                        bL.setPower(POWER);
                         fR.setPower(-POWER);
                         bR.setPower(-POWER);
                         sleep(200);
+                        fL.setPower(-POWER);
+                        bL.setPower(-POWER);
+                        fR.setPower(POWER);
+                        bR.setPower(POWER);
+                        sleep(200);
+
                         fL.setPower(0);
                         bL.setPower(0);
                         fR.setPower(0);
@@ -96,15 +107,13 @@ public class Auto_Red_Helper_2 extends LinearOpMode {
                         state358 = state.RED;
                         break;
                     }
-                    break;
 
-                // use else/if in case neither red nor blue --- go to STOP? or SAFEZONE?
+                    break;
 
                 case RED:
                     arm.setPosition(oPosition);
                     sleep(2000);
 
-                    sleep(2000);
                     fL.setPower(POWER);
                     bL.setPower(POWER);
                     fR.setPower(POWER);
@@ -123,12 +132,11 @@ public class Auto_Red_Helper_2 extends LinearOpMode {
                     arm.setPosition(oPosition);
                     sleep(2000);
 
-                    sleep(2000);
                     fL.setPower(POWER);
                     bL.setPower(POWER);
                     fR.setPower(POWER);
                     bR.setPower(POWER);
-                    sleep(1000);
+                    sleep(900);
 
                     fL.setPower(0);
                     bL.setPower(0);
@@ -143,7 +151,7 @@ public class Auto_Red_Helper_2 extends LinearOpMode {
                     bL.setPower(POWER);
                     fR.setPower(-POWER);
                     bR.setPower(-POWER);
-                    sleep(500);
+                    sleep(650);
 
                     fL.setPower(0);
                     bL.setPower(0);

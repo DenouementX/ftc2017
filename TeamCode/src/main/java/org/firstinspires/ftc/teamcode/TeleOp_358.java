@@ -90,14 +90,14 @@ public class TeleOp_358 extends LinearOpMode {
             }
 
             if(gamepad2.dpad_up){
-                release.setPower(0.2);
-                retract.setPower(0.6);
+                release.setPower(-0.6);
+                retract.setPower(-0.2);
                 // also turn retract motor
             }
 
             if(gamepad2.dpad_down){
-                retract.setPower(-0.4);
-                release.setPower(-0.2);
+                retract.setPower(0.4);
+                release.setPower(0.3);
                 // also turn release motor
             }
 

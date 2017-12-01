@@ -27,6 +27,8 @@ public class TeleOp_Drive_Code extends LinearOpMode{
     Servo right;
     Servo arm;
     ColorSensor color;
+    DcMotor retract;
+    DcMotor release;
 
     //This function finds the magnitude of the left stick of a gamepad.
     public Double magnitudeLeftStick(Gamepad gamepad){
@@ -51,6 +53,8 @@ public class TeleOp_Drive_Code extends LinearOpMode{
         right = hardwareMap.servo.get("right");
         arm = hardwareMap.servo.get("arm");
         color = hardwareMap.colorSensor.get("color");
+        retract = hardwareMap.dcMotor.get("retract");
+        release = hardwareMap.dcMotor.get("release");
 
         //Defining the directions of the motors and servos.
         fL.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -64,6 +68,7 @@ public class TeleOp_Drive_Code extends LinearOpMode{
 
             //Auto-servo is held in place.
             arm.setPosition(.95);
+            release.setPower(-0.01);
 
             //Defining drive, strafe, and rotation power.
             double drive = gamepad1.left_stick_y;
@@ -78,6 +83,9 @@ public class TeleOp_Drive_Code extends LinearOpMode{
 
             //Defining the joystick magnitude and maximum power.
             double POWER = -1 * Math.pow(Range.clip(Math.max(magnitudeLeftStick(gamepad1), Math.abs(rotate)), -1, 1), 3);
+            if (gamepad1.b){
+                POWER = POWER / 1.5;
+            }
             telemetry.addData("POWER: ", POWER);
             double maxPower = findMax(Math.abs(flPower), Math.abs(blPower), Math.abs(frPower), Math.abs(brPower));
             telemetry.addData("maxPower: ", maxPower);
