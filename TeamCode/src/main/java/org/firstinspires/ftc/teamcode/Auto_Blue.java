@@ -1,11 +1,11 @@
 package org.firstinspires.ftc.teamcode;
 
 /**
- *  This current autonomous will simply knock off the jewel (30 points)
- *  and park in the safe zone (10 points)
+ *  This current autonomous will knock off the jewel (30 points),
+ *  Drive into the safe zone (10 points)
+ *  For a total of 40 points
  */
 
-//main
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
@@ -25,9 +25,16 @@ public class Auto_Blue extends LinearOpMode {
     Servo right;
     Servo arm;
     ColorSensor color;
+    state state358;
+    DcMotor retract;
+    DcMotor release;
 
-    double dPosition = 0.3;
-    double oPosition = 1;
+    double dPosition = 0.3; // down position
+    double oPosition = 1;   // original position
+
+    enum state {
+        JEWEL, STOP, RED, BLUE, TURN
+    }
 
     public void runOpMode() throws InterruptedException {
 
@@ -40,6 +47,9 @@ public class Auto_Blue extends LinearOpMode {
         right = hardwareMap.servo.get("right");
         arm = hardwareMap.servo.get("arm");
         color = hardwareMap.colorSensor.get("color");
+        retract = hardwareMap.dcMotor.get("retract");
+        release = hardwareMap.dcMotor.get("release");
+        state358 = state.JEWEL;
 
         fL.setDirection(DcMotor.Direction.REVERSE);
         left.setDirection(Servo.Direction.REVERSE);
@@ -51,38 +61,120 @@ public class Auto_Blue extends LinearOpMode {
         left.setPosition(0);
         right.setPosition(0);
 
-        telemetry.addData("Red: ", color.red());
-        telemetry.addData("Blue: ", color.blue());
-
         waitForStart();
 
         while (opModeIsActive()) {
 
-            if (color.blue()/2 > color.red()) {
-                fL.setPower(-POWER);
-                bL.setPower(-POWER);
-                fR.setPower(-POWER);
-                bR.setPower(-POWER);
-                sleep(200);
-                arm.setPosition(oPosition);
-            }
+            telemetry.addData("Going into state: ", state358);
+            telemetry.update();
+            release.setPower(-0.01);
 
-            if (color.blue() < color.red()/2) {
-                fL.setPower(POWER);
-                bL.setPower(POWER);
-                fR.setPower(POWER);
-                bR.setPower(POWER);
-                sleep(200);
-                arm.setPosition(oPosition);
-            }
+            switch(state358) {
 
-            else{
-                fL.setPower(0);
-                bL.setPower(0);
-                fR.setPower(0);
-                bR.setPower(0);
-            }
+                case JEWEL:
+                    lS.setPower(-0.5);
+                    sleep(200);
+                    lS.setPower(0);
+                    if (color.blue()/2 > color.red()) { //blue: move backwards
+                        fL.setPower(-POWER);
+                        bL.setPower(-POWER);
+                        fR.setPower(-POWER);
+                        bR.setPower(-POWER);
+                        sleep(200);
+                        fL.setPower(0);
+                        bL.setPower(0);
+                        fR.setPower(0);
+                        bR.setPower(0);
+                        state358 = state.BLUE;
+                        break;
+                    }
 
+                    if (color.blue() < color.red()/2) { //red: turn left and then reset direction
+                        fL.setPower(-POWER);
+                        bL.setPower(-POWER);
+                        fR.setPower(POWER);
+                        bR.setPower(POWER);
+                        sleep(200);
+
+                        fL.setPower(0);
+                        bL.setPower(0);
+                        fR.setPower(0);
+                        bR.setPower(0);
+                        arm.setPosition(oPosition);
+                        sleep(2000);
+
+                        fL.setPower(POWER);
+                        bL.setPower(POWER);
+                        fR.setPower(-POWER);
+                        bR.setPower(-POWER);
+                        sleep(200);
+
+                        fL.setPower(0);
+                        bL.setPower(0);
+                        fR.setPower(0);
+                        bR.setPower(0);
+                        state358 = state.RED;
+                        break;
+                    }
+
+                    break;
+
+                case RED:
+                    fL.setPower(-POWER);
+                    bL.setPower(-POWER);
+                    fR.setPower(-POWER);
+                    bR.setPower(-POWER);
+                    sleep(1000);
+
+                    fL.setPower(0);
+                    bL.setPower(0);
+                    fR.setPower(0);
+                    bR.setPower(0);
+
+                    state358 = state.TURN;
+                    break;
+
+                case BLUE:
+                    arm.setPosition(oPosition);
+                    sleep(2000);
+
+                    fL.setPower(-POWER);
+                    bL.setPower(-POWER);
+                    fR.setPower(-POWER);
+                    bR.setPower(-POWER);
+                    sleep(900);
+
+                    fL.setPower(0);
+                    bL.setPower(0);
+                    fR.setPower(0);
+                    bR.setPower(0);
+
+                    state358 = state.TURN;
+                    break;
+
+                case TURN:
+                    fL.setPower(POWER);
+                    bL.setPower(POWER);
+                    fR.setPower(-POWER);
+                    bR.setPower(-POWER);
+                    sleep(650);
+
+                    fL.setPower(0);
+                    bL.setPower(0);
+                    fR.setPower(0);
+                    bR.setPower(0);
+
+                    state358 = state.STOP;
+                    break;
+
+                case STOP:
+                    fL.setPower(0);
+                    bL.setPower(0);
+                    fR.setPower(0);
+                    bR.setPower(0);
+                    sleep(30000);
+
+            }
         }
     }
 }

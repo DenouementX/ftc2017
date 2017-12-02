@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
+import static java.lang.Math.*;
 
 /**
  * Created by lawrencemao on 11/7/17.
@@ -28,8 +29,14 @@ public class TeleOp_358 extends LinearOpMode {
     Servo arm;
     ColorSensor color;
 
+    //This function finds the magnitude of the left stick of a gamepad.
     public Double magnitudeLeftStick(Gamepad gamepad){
-        return Math.sqrt(Math.pow(gamepad.left_stick_x, 2) + Math.pow(gamepad.left_stick_y, 2));
+        return sqrt(pow(gamepad.left_stick_x, 2) + pow(gamepad.left_stick_y, 2));
+    }
+
+    //This function finds the max value given 4 values.
+    public Double findMax(Double d1, Double d2, Double d3, Double d4){
+        return max(max(d1, d2), max(d3, d4));
     }
 
     public void runOpMode() throws InterruptedException{
@@ -39,8 +46,8 @@ public class TeleOp_358 extends LinearOpMode {
         fR = hardwareMap.dcMotor.get("frontRight");   //EH2 - 0
         bR = hardwareMap.dcMotor.get("backRight");    //EH2 - 3
         lS = hardwareMap.dcMotor.get("linearSlide");  //EH5 - 0
-        left = hardwareMap.servo.get("left");         //EH2 - ???
-        right = hardwareMap.servo.get("right");       //EH2 - ???
+        left = hardwareMap.servo.get("left");         //EH2 - 0
+        right = hardwareMap.servo.get("right");       //EH2 - 1
         arm = hardwareMap.servo.get("arm");           //EH5 - 0
         color = hardwareMap.colorSensor.get("color"); //EH5 - 0
         retract = hardwareMap.dcMotor.get("retract"); //EH5 - 1
@@ -56,29 +63,45 @@ public class TeleOp_358 extends LinearOpMode {
             //auto-servo is held in place
             arm.setPosition(.95);
 
-            double POWER = -1 * Range.clip(Math.max(Range.clip(magnitudeLeftStick(gamepad1), -1, 1), Math.abs(gamepad1.right_stick_x)), -1, 1);
-            double maxPower = Math.max(Math.max(Math.abs(gamepad1.left_stick_y - gamepad1.left_stick_x - gamepad1.right_stick_x),
-                    Math.abs(gamepad1.left_stick_y + gamepad1.left_stick_x - gamepad1.right_stick_x)),
-                    Math.max(Math.abs(gamepad1.left_stick_y + gamepad1.left_stick_x + gamepad1.right_stick_x),
-                            Math.abs(gamepad1.left_stick_y - gamepad1.left_stick_x + gamepad1.right_stick_x)));
 
-            fL.setPower(POWER * (gamepad1.left_stick_y - gamepad1.left_stick_x - gamepad1.right_stick_x) / maxPower);
-            bL.setPower(POWER * (gamepad1.left_stick_y + gamepad1.left_stick_x - gamepad1.right_stick_x) / maxPower);
-            fR.setPower(POWER * (gamepad1.left_stick_y + gamepad1.left_stick_x + gamepad1.right_stick_x) / maxPower);
-            bR.setPower(POWER * (gamepad1.left_stick_y - gamepad1.left_stick_x + gamepad1.right_stick_x) / maxPower);
+            //Defining drive, strafe, and rotation power.
+            double drive = gamepad1.left_stick_y;
+            double strafe = gamepad1.left_stick_x;
+            double rotate = gamepad1.right_stick_x;
+
+            //Defining the motor power distribution.
+            double flPower = drive - strafe - rotate;
+            double blPower = drive + strafe - rotate;
+            double frPower = drive + strafe + rotate;
+            double brPower = drive - strafe + rotate;
+
+            //Defining the joystick magnitude and maximum power.
+            double POWER = -1 * pow(Range.clip(max(magnitudeLeftStick(gamepad1), abs(rotate)), -1, 1), 3) / (0.5 * pow(gamepad1.right_trigger, 2) + 1);
+            telemetry.addData("POWER: ", POWER);
+            double maxPower = findMax(abs(flPower), abs(blPower), abs(frPower), abs(brPower));
+            telemetry.addData("maxPower: ", maxPower);
+            telemetry.update();
+
+            //Sets the power for all the drive motors.
+            fL.setPower(POWER * flPower / maxPower);
+            bL.setPower(POWER * blPower / maxPower);
+            fR.setPower(POWER * frPower / maxPower);
+            bR.setPower(POWER * brPower / maxPower);
 
             lS.setPower(0);
             release.setPower(0);
             retract.setPower(0);
 
+            //Controls rack and pinion
             if(gamepad2.right_bumper){
-                lS.setPower(0.5);
-            }
-
-            if(gamepad2.left_bumper){
                 lS.setPower(-0.5);
             }
 
+            if(gamepad2.left_bumper){
+                lS.setPower(0.5);
+            }
+
+            //Controls UltraLord
             if(gamepad2.a){
                 left.setPosition(1);
                 right.setPosition(1);
@@ -89,16 +112,15 @@ public class TeleOp_358 extends LinearOpMode {
                 right.setPosition(0);
             }
 
+            //Controls Linear Slides
             if(gamepad2.dpad_up){
                 release.setPower(-0.6);
                 retract.setPower(-0.2);
-                // also turn retract motor
             }
 
             if(gamepad2.dpad_down){
                 retract.setPower(0.4);
                 release.setPower(0.3);
-                // also turn release motor
             }
 
         }
