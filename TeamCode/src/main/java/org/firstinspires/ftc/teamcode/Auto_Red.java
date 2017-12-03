@@ -2,8 +2,9 @@ package org.firstinspires.ftc.teamcode;
 
 /**
  *  This current autonomous will knock off the jewel (30 points),
- *  Drive into the safe zone (10 points)
- *  For a total of 40 points
+ *  Score a glyph into the cryptobox (15 points),
+ *  Drive into the safe zone (10 points),
+ *  For a total of 55 points
  */
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -33,7 +34,7 @@ public class Auto_Red extends LinearOpMode {
     double oPosition = 1;   // original position
 
     enum state {
-        JEWEL, STOP, RED, BLUE, TURN
+        JEWEL, STOP, RED, BLUE, TURN, BOX
     }
 
     public void runOpMode() throws InterruptedException {
@@ -95,6 +96,14 @@ public class Auto_Red extends LinearOpMode {
                         fR.setPower(-POWER);
                         bR.setPower(-POWER);
                         sleep(200);
+
+                        fL.setPower(0);
+                        bL.setPower(0);
+                        fR.setPower(0);
+                        bR.setPower(0);
+                        arm.setPosition(oPosition);
+                        sleep(2000);
+
                         fL.setPower(-POWER);
                         bL.setPower(-POWER);
                         fR.setPower(POWER);
@@ -112,9 +121,6 @@ public class Auto_Red extends LinearOpMode {
                     break;
 
                 case RED:
-                    arm.setPosition(oPosition);
-                    sleep(2000);
-
                     fL.setPower(POWER);
                     bL.setPower(POWER);
                     fR.setPower(POWER);
@@ -153,6 +159,36 @@ public class Auto_Red extends LinearOpMode {
                     fR.setPower(-POWER);
                     bR.setPower(-POWER);
                     sleep(650);
+
+                    fL.setPower(0);
+                    bL.setPower(0);
+                    fR.setPower(0);
+                    bR.setPower(0);
+
+                    state358 = state.BOX;
+                    break;
+
+                case BOX:
+                    fL.setPower(POWER);
+                    bL.setPower(POWER);
+                    fR.setPower(POWER);
+                    bR.setPower(POWER);
+                    sleep(200);
+
+                    fL.setPower(0);
+                    bL.setPower(0);
+                    fR.setPower(0);
+                    bR.setPower(0);
+
+                    left.setPosition(1);
+                    right.setPosition(1);
+                    sleep(1000);
+
+                    fL.setPower(-POWER);
+                    bL.setPower(-POWER);
+                    fR.setPower(-POWER);
+                    bR.setPower(-POWER);
+                    sleep(200);
 
                     fL.setPower(0);
                     bL.setPower(0);
