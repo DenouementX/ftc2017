@@ -76,9 +76,11 @@ public class TeleOp_358 extends LinearOpMode {
             double brPower = drive - strafe + rotate;
 
             //Defining the joystick magnitude and maximum power.
-            double POWER = -1 * pow(Range.clip(max(magnitudeLeftStick(gamepad1), abs(rotate)), -1, 1), 3) / (0.5 * pow(gamepad1.right_trigger, 2) + 1);
+            //double POWER = -1 * pow(Range.clip(max(magnitudeLeftStick(gamepad1), abs(rotate)), -1, 1), 3) / (0.5 * pow(gamepad1.right_trigger, 2) + 1);
+            double joyStick = Range.clip(max(magnitudeLeftStick(gamepad1), abs(rotate)), -1, 1);
+            double POWER = -1 * joyStick * abs(joyStick);
             telemetry.addData("POWER: ", POWER);
-            double maxPower = findMax(abs(flPower), abs(blPower), abs(frPower), abs(brPower));
+            double maxPower = findMax(abs(flPower), abs(blPower), abs(frPower), abs(brPower)); // greatest value of all motor powers
             telemetry.addData("maxPower: ", maxPower);
             telemetry.update();
 
@@ -88,11 +90,11 @@ public class TeleOp_358 extends LinearOpMode {
             fR.setPower(POWER * frPower / maxPower);
             bR.setPower(POWER * brPower / maxPower);
 
-            lS.setPower(0);
-            release.setPower(0);
-            retract.setPower(0);
 
             //Controls rack and pinion
+            //lS ... lift system motor speed
+            lS.setPower(0);
+
             if(gamepad2.right_bumper){
                 lS.setPower(-0.5);
             }
@@ -101,7 +103,7 @@ public class TeleOp_358 extends LinearOpMode {
                 lS.setPower(0.5);
             }
 
-            //Controls UltraLord
+            //Controls UltraLord servos
             if(gamepad2.a){
                 left.setPosition(1);
                 right.setPosition(1);
@@ -112,7 +114,11 @@ public class TeleOp_358 extends LinearOpMode {
                 right.setPosition(0);
             }
 
-            //Controls Linear Slides
+            // default to zero, unless button pressed
+            release.setPower(0);
+            retract.setPower(0);
+
+            //Controls motors for Linear Slides
             if(gamepad2.dpad_up){
                 release.setPower(-0.6);
                 retract.setPower(-0.2);
