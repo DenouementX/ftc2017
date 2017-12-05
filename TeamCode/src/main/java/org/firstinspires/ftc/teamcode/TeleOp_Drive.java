@@ -16,7 +16,7 @@ import static java.lang.Math.*;
 
 @TeleOp
 
-public class TeleOp_Drive_Code extends LinearOpMode{
+public class TeleOp_Drive extends LinearOpMode{
 
     //Declaring all the motors, servos, and sensors.
     DcMotor fL;
