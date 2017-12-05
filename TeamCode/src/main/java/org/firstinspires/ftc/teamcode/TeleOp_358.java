@@ -53,6 +53,11 @@ public class TeleOp_358 extends LinearOpMode {
         retract = hardwareMap.dcMotor.get("retract"); //EH5 - 1
         release = hardwareMap.dcMotor.get("release"); //EH5 - 2
 
+        fL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        bL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        fR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        bR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
         fL.setDirection(DcMotor.Direction.REVERSE);
         left.setDirection(Servo.Direction.REVERSE);
         bL.setDirection(DcMotor.Direction.REVERSE);
