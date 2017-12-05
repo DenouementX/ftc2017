@@ -29,6 +29,8 @@ public class TeleOp_Drive extends LinearOpMode{
     Servo arm;
     ColorSensor color;
 
+
+
     //This function finds the magnitude of the left stick of a gamepad.
     public Double magnitudeLeftStick(Gamepad gamepad){
         return sqrt(pow(gamepad.left_stick_x, 2) + pow(gamepad.left_stick_y, 2));
@@ -41,6 +43,8 @@ public class TeleOp_Drive extends LinearOpMode{
 
     //Run OpMode code.
     public void runOpMode() throws InterruptedException{
+
+
 
         //Defining where to find the motors, servos, and sensors.
         fL = hardwareMap.dcMotor.get("frontLeft");
@@ -111,6 +115,8 @@ public class TeleOp_Drive extends LinearOpMode{
                 left.setPosition(0);
                 right.setPosition(0);
             }
+
+
 
 
         }
