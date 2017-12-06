@@ -2,9 +2,9 @@ package org.firstinspires.ftc.teamcode;
 
 /**
  *  This current autonomous will knock off the jewel (30 points),
- *  Score a glyph into the cryptobox (15 points),
+ *  Score a glyph into the corresponding cryptobox (45 points),
  *  Drive into the safe zone (10 points),
- *  For a total of 55 points
+ *  For a total of 85 points
  */
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
