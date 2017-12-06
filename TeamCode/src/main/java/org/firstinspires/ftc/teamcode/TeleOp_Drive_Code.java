@@ -11,19 +11,19 @@ import static java.lang.Math.*;
 
 public class TeleOp_Drive_Code{
 
-    public Double magnitudeLeftStick(Gamepad gamePad){
+    static public Double magnitudeLeftStick(Gamepad gamePad){
 
         return sqrt(pow(gamePad.left_stick_x, 2) + pow(gamePad.left_stick_y, 2));
 
     }
 
-    public Double findMax(Double d1, Double d2, Double d3, Double d4) {
+    static public Double findMax(Double d1, Double d2, Double d3, Double d4) {
 
         return max(max(d1, d2), max(d3, d4));
 
     }
 
-    void TeleOpDriveCode(Gamepad gamePad, DcMotor frontLeft, DcMotor backLeft, DcMotor frontRight, DcMotor backRight){
+    static void TeleOpDriveCode(Gamepad gamePad, DcMotor frontLeft, DcMotor backLeft, DcMotor frontRight, DcMotor backRight){
 
         double drive = 0;
         double strafe = 0;

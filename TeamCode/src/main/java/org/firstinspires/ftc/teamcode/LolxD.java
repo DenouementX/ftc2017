@@ -21,14 +21,18 @@ public class LolxD extends LinearOpMode{
     public void runOpMode() throws InterruptedException{
 
         fL = hardwareMap.dcMotor.get("frontLeft");
+        bL = hardwareMap.dcMotor.get("backLeft");
+        fR = hardwareMap.dcMotor.get("frontRight");
+        bR = hardwareMap.dcMotor.get("backRight");
 
         fL.setDirection(DcMotorSimple.Direction.REVERSE);
+        bL.setDirection(DcMotorSimple.Direction.REVERSE);
 
         waitForStart();
 
         while (opModeIsActive()){
 
-            TeleOp_Drive_Code.TeleOpDriveCode(gamepad1, fL);
+            TeleOp_Drive_Code.TeleOpDriveCode(gamepad1, fL, bL, fR, bR);
 
         }
 
