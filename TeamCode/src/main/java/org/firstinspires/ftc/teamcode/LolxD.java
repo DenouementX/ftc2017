@@ -14,6 +14,9 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 public class LolxD extends LinearOpMode{
 
     DcMotor fL;
+    DcMotor bL;
+    DcMotor fR;
+    DcMotor bR;
 
     public void runOpMode() throws InterruptedException{
 
