@@ -25,11 +25,11 @@ public class TeleOp_Drive_Code{
 
     static void TeleOpDriveCode(Gamepad gamePad, DcMotor frontLeft, DcMotor backLeft, DcMotor frontRight, DcMotor backRight){
 
-        double drive = 0;
-        double strafe = 0;
-        double rotate = 0;
+        double drive;
+        double strafe;
+        double rotate;
 
-        double joystick = 0;
+        double joystick;
 
         if (magnitudeLeftStick(gamePad) > 1){
 
