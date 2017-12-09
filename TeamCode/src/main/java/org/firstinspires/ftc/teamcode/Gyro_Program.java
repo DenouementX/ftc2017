@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
@@ -13,7 +14,7 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
  * Created by artembookpro on 19.10.17.
  */
 
-@Autonomous
+@Disabled
 
 public class Gyro_Program extends LinearOpMode  {
 

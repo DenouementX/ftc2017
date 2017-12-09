@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.ColorSensor;
@@ -13,7 +14,7 @@ import com.qualcomm.robotcore.util.Range;
  * Created by kevinwang on 11/15/17.
  */
 
-@TeleOp
+@Disabled
 
 public class KPSSYA extends LinearOpMode {
 

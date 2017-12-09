@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -13,6 +14,7 @@ import com.sun.tools.javac.code.Attribute;
  */
 
 @TeleOp(name = "TeleOp Encoders")
+@Disabled
 
 public class TeleOp_Encoders extends LinearOpMode {
 
