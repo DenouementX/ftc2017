@@ -17,10 +17,12 @@ import static java.lang.Math.*;
 
 public class TeleOp_358 extends LinearOpMode {
 
+    //Drive motors
     DcMotor fL;
     DcMotor bL;
     DcMotor fR;
     DcMotor bR;
+
     DcMotor lS;
     DcMotor retract;
     DcMotor release;
