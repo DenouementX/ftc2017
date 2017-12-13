@@ -67,7 +67,7 @@ public class lmao extends OpMode{
         double brPower = drive - strafe + rotate;
 
         //Defining the joystick magnitude and maximum power.
-        //double POWER = -1 * pow(Range.clip(max(magnitudeLeftStick(gamepad1), abs(rotate)), -1, 1), 3) / (0.5 * pow(gamepad1.right_trigger, 2) + 1);
+        //Double POWER = -1 * pow(Range.clip(max(magnitudeLeftStick(gamepad1), abs(rotate)), -1, 1), 3) / (0.5 * pow(gamepad1.right_trigger, 2) + 1);
         double joyStick = Range.clip(max(magnitudeLeftStick(gamepad1), abs(rotate)), -1, 1);
         double POWER = -1 * joyStick * abs(joyStick);
         telemetry.addData("POWER: ", POWER);
