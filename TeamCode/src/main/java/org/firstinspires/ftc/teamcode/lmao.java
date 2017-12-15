@@ -60,6 +60,9 @@ public class lmao extends OpMode{
         double strafe = gamepad1.left_stick_x;
         double rotate = gamepad1.right_stick_x;
 
+        drive = drive * abs(drive);
+        strafe = strafe * abs(strafe);
+
         //Defining the motor power distribution.
         double flPower = drive - strafe - rotate;
         double blPower = drive + strafe - rotate;
@@ -85,20 +88,20 @@ public class lmao extends OpMode{
         //Linear Slide Controller
         lS.setPower(0);
 
-        if (gamepad1.dpad_up){
-            lS.setPower(-0.3);
+        if (gamepad2.dpad_up){
+            lS.setPower(-0.7);
         }
 
-        if (gamepad1.dpad_down){
-            lS.setPower(0.3);
+        if (gamepad2.dpad_down){
+            lS.setPower(0.7);
         }
 
         //Glyph Mechanism Controller
-        if (!gamepad1.a) {
-            left.setPosition(0);
-            right.setPosition(0);
+        if (!gamepad2.a) {
+            left.setPosition(0.3);
+            right.setPosition(0.3);
         }
-        else if (gamepad1.a){
+        else if (gamepad2.a){
             left.setPosition(1);
             right.setPosition(1);
         }
