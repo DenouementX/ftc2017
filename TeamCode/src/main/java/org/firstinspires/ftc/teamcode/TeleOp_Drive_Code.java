@@ -23,7 +23,7 @@ public class TeleOp_Drive_Code{
 
     }
 
-    static void TeleOpDriveCode(Gamepad gamePad, DcMotor frontLeft, DcMotor backLeft, DcMotor frontRight, DcMotor backRight){
+    static void TeleOpDrive(Gamepad gamePad, DcMotor frontLeft, DcMotor backLeft, DcMotor frontRight, DcMotor backRight){
 
         double drive;
         double strafe;

@@ -32,7 +32,7 @@ public class LolxD extends LinearOpMode{
 
         while (opModeIsActive()){
 
-            TeleOp_Drive_Code.TeleOpDriveCode(gamepad1, fL, bL, fR, bR);
+            TeleOp_Drive_Code.TeleOpDrive(gamepad1, fL, bL, fR, bR);
 
         }
 

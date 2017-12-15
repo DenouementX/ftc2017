@@ -17,7 +17,7 @@ import static java.lang.Math.*;
 
 public class TeleOp_358 extends LinearOpMode {
 
-    //Drive motors
+    //Declaring drive motors
     DcMotor fL;
     DcMotor bL;
     DcMotor fR;
@@ -43,10 +43,22 @@ public class TeleOp_358 extends LinearOpMode {
 
     public void runOpMode() throws InterruptedException{
 
+        //Defining drive motors
         fL = hardwareMap.dcMotor.get("frontLeft");    //EH2 - 1
         bL = hardwareMap.dcMotor.get("backLeft");     //EH2 - 2
         fR = hardwareMap.dcMotor.get("frontRight");   //EH2 - 0
         bR = hardwareMap.dcMotor.get("backRight");    //EH2 - 3
+
+        //Attempting to run the motors with encoders
+        fL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        bL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        fR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        bR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        //Settings the directions on the left side motors
+        fL.setDirection(DcMotor.Direction.REVERSE);
+        bL.setDirection(DcMotor.Direction.REVERSE);
+
         lS = hardwareMap.dcMotor.get("linearSlide");  //EH5 - 0
         left = hardwareMap.servo.get("left");         //EH2 - 0
         right = hardwareMap.servo.get("right");       //EH2 - 1
@@ -55,48 +67,17 @@ public class TeleOp_358 extends LinearOpMode {
         retract = hardwareMap.dcMotor.get("retract"); //EH5 - 1
         release = hardwareMap.dcMotor.get("release"); //EH5 - 2
 
-        fL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        bL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        fR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        bR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-        fL.setDirection(DcMotor.Direction.REVERSE);
         left.setDirection(Servo.Direction.REVERSE);
-        bL.setDirection(DcMotor.Direction.REVERSE);
 
         waitForStart();
 
         while(opModeIsActive()) {
+
             //auto-servo is held in place
             arm.setPosition(.95);
 
-
-            //Defining drive, strafe, and rotation power.
-            double drive = gamepad1.left_stick_y;
-            double strafe = gamepad1.left_stick_x;
-            double rotate = gamepad1.right_stick_x;
-
-            //Defining the motor power distribution.
-            double flPower = drive - strafe - rotate;
-            double blPower = drive + strafe - rotate;
-            double frPower = drive + strafe + rotate;
-            double brPower = drive - strafe + rotate;
-
-            //Defining the joystick magnitude and maximum power.
-            //double POWER = -1 * pow(Range.clip(max(magnitudeLeftStick(gamepad1), abs(rotate)), -1, 1), 3) / (0.5 * pow(gamepad1.right_trigger, 2) + 1);
-            double joyStick = Range.clip(max(magnitudeLeftStick(gamepad1), abs(rotate)), -1, 1);
-            double POWER = -1 * joyStick * abs(joyStick);
-            telemetry.addData("POWER: ", POWER);
-            double maxPower = findMax(abs(flPower), abs(blPower), abs(frPower), abs(brPower)); // greatest value of all motor powers
-            telemetry.addData("maxPower: ", maxPower);
-            telemetry.update();
-
-            //Sets the power for all the drive motors.
-            fL.setPower(POWER * flPower / maxPower);
-            bL.setPower(POWER * blPower / maxPower);
-            fR.setPower(POWER * frPower / maxPower);
-            bR.setPower(POWER * brPower / maxPower);
-
+            //Exponential drive code
+            TeleOp_Drive_Code.TeleOpDrive(gamepad1, fL, bL, fR, bR);
 
             //Controls rack and pinion
             //lS ... lift system motor speed
