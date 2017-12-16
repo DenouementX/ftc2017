@@ -96,8 +96,7 @@ public class lmao extends OpMode{
         }
 
         //Glyph Mechanism Controller
-        glyph.setPower(gamepad2.left_stick_y);
+        glyph.setPower(gamepad2.right_stick_y);
 
     }
-
 }
