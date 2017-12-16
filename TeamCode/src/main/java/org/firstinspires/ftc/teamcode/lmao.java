@@ -83,7 +83,6 @@ public class lmao extends OpMode{
         fR.setPower(POWER * frPower / maxPower);
         bR.setPower(POWER * brPower / maxPower);
 
-
         //Linear Slide Controller
         lS.setPower(0);
 
