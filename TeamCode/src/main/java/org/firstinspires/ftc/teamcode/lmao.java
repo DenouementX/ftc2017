@@ -25,8 +25,7 @@ public class lmao extends OpMode{
     DcMotor bL;
     DcMotor fR;
     DcMotor bR;
-    Servo left;
-    Servo right;
+    DcMotor glyph;
     DcMotor lS;
 
     //This function finds the magnitude of the left stick of a gamepad.
@@ -40,17 +39,17 @@ public class lmao extends OpMode{
     }
 
     public void init(){
-        left = hardwareMap.servo.get("left");
-        right = hardwareMap.servo.get("right");
-        fL = hardwareMap.dcMotor.get("fL");      //EH2 - 1
-        bL = hardwareMap.dcMotor.get("bL");      //EH2 - 2
-        fR = hardwareMap.dcMotor.get("fR");      //EH2 - 0
-        bR = hardwareMap.dcMotor.get("bR");      //EH2 - 3
-        lS = hardwareMap.dcMotor.get("lS");      //EH5 - 0
+
+        fL = hardwareMap.dcMotor.get("fL");         //EH2 - 1
+        bL = hardwareMap.dcMotor.get("bL");         //EH2 - 2
+        fR = hardwareMap.dcMotor.get("fR");         //EH2 - 0
+        bR = hardwareMap.dcMotor.get("bR");         //EH2 - 3
+        lS = hardwareMap.dcMotor.get("lS");         //EH5 - 0
+        glyph = hardwareMap.dcMotor.get("glyph");   //EH5 - 1
 
         fL.setDirection(DcMotor.Direction.REVERSE);
-        left.setDirection(Servo.Direction.REVERSE);
         bL.setDirection(DcMotor.Direction.REVERSE);
+
     }
 
     public void loop() {
@@ -97,14 +96,7 @@ public class lmao extends OpMode{
         }
 
         //Glyph Mechanism Controller
-        if (!gamepad2.a) {
-            left.setPosition(0.3);
-            right.setPosition(0.3);
-        }
-        else if (gamepad2.a){
-            left.setPosition(1);
-            right.setPosition(1);
-        }
+        glyph.setPower(gamepad2.left_stick_y);
 
     }
 
