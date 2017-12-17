@@ -1,7 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 /**
- *  Created by lawrencemao on 12/15/17.
+ *  Created by lawrencemao on 12/16/17.
  *  This current autonomous will knock off the jewel (30 points),
  *  Score a glyph into the corresponding cryptobox (45 points),
  *  Drive into the safe zone (10 points),
@@ -16,7 +16,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 @Autonomous
 
-public class Meet2_Red extends LinearOpMode {
+public class Meet2_Blue extends LinearOpMode {
 
     DcMotor fL;
     DcMotor bL;
@@ -44,8 +44,8 @@ public class Meet2_Red extends LinearOpMode {
         bR = hardwareMap.dcMotor.get("backRight");
         lS = hardwareMap.dcMotor.get("linearSlide");
         glyph = hardwareMap.dcMotor.get("glyph");
-        arm = hardwareMap.servo.get("arm");                //Hub5 - Port 5
-        color = hardwareMap.colorSensor.get("color");      //Hub5 - I2C 0
+        arm = hardwareMap.servo.get("arm");
+        color = hardwareMap.colorSensor.get("color");
 
         state358 = state.JEWEL;
 
@@ -74,11 +74,11 @@ public class Meet2_Red extends LinearOpMode {
                     sleep(200);
                     lS.setPower(0);
 
-                    if (color.blue()/2 > color.red()) { //blue: move forward
-                        fL.setPower(POWER);
-                        bL.setPower(POWER);
-                        fR.setPower(POWER);
-                        bR.setPower(POWER);
+                    if (color.blue()/2 > color.red()) { //blue: move backwards
+                        fL.setPower(-POWER);
+                        bL.setPower(-POWER);
+                        fR.setPower(-POWER);
+                        bR.setPower(-POWER);
                         sleep(200);
                         fL.setPower(0);
                         bL.setPower(0);
@@ -88,11 +88,11 @@ public class Meet2_Red extends LinearOpMode {
                         break;
                     }
 
-                    if (color.blue() < color.red()/2) { //red: turn right and then reset direction
-                        fL.setPower(POWER);
-                        bL.setPower(POWER);
-                        fR.setPower(-POWER);
-                        bR.setPower(-POWER);
+                    if (color.blue() < color.red()/2) { //red: turn left and then reset direction
+                        fL.setPower(-POWER);
+                        bL.setPower(-POWER);
+                        fR.setPower(POWER);
+                        bR.setPower(POWER);
                         sleep(200);
 
                         fL.setPower(0);
@@ -102,10 +102,10 @@ public class Meet2_Red extends LinearOpMode {
                         arm.setPosition(oPosition);
                         sleep(2000);
 
-                        fL.setPower(-POWER);
-                        bL.setPower(-POWER);
-                        fR.setPower(POWER);
-                        bR.setPower(POWER);
+                        fL.setPower(POWER);
+                        bL.setPower(POWER);
+                        fR.setPower(-POWER);
+                        bR.setPower(-POWER);
                         sleep(200);
 
                         fL.setPower(0);
@@ -119,10 +119,10 @@ public class Meet2_Red extends LinearOpMode {
                     break;
 
                 case RED:
-                    fL.setPower(POWER);
-                    bL.setPower(POWER);
-                    fR.setPower(POWER);
-                    bR.setPower(POWER);
+                    fL.setPower(-POWER);
+                    bL.setPower(-POWER);
+                    fR.setPower(-POWER);
+                    bR.setPower(-POWER);
                     sleep(1000);
 
                     fL.setPower(0);
@@ -137,10 +137,10 @@ public class Meet2_Red extends LinearOpMode {
                     arm.setPosition(oPosition);
                     sleep(2000);
 
-                    fL.setPower(POWER);
-                    bL.setPower(POWER);
-                    fR.setPower(POWER);
-                    bR.setPower(POWER);
+                    fL.setPower(-POWER);
+                    bL.setPower(-POWER);
+                    fR.setPower(-POWER);
+                    bR.setPower(-POWER);
                     sleep(900);
 
                     fL.setPower(0);

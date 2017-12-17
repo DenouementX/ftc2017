@@ -28,6 +28,8 @@ public class lmao extends OpMode{
     DcMotor glyph;
     DcMotor lS;
 
+    Servo arm;
+
     //This function finds the magnitude of the left stick of a gamepad.
     public Double magnitudeLeftStick(Gamepad gamepad){
         return sqrt(pow(gamepad.left_stick_x, 2) + pow(gamepad.left_stick_y, 2));
@@ -40,12 +42,14 @@ public class lmao extends OpMode{
 
     public void init(){
 
-        fL = hardwareMap.dcMotor.get("fL");         //EH2 - 1
-        bL = hardwareMap.dcMotor.get("bL");         //EH2 - 2
-        fR = hardwareMap.dcMotor.get("fR");         //EH2 - 0
-        bR = hardwareMap.dcMotor.get("bR");         //EH2 - 3
-        lS = hardwareMap.dcMotor.get("lS");         //EH5 - 0
-        glyph = hardwareMap.dcMotor.get("glyph");   //EH5 - 1
+        fL = hardwareMap.dcMotor.get("frontLeft");         //EH2 - 1
+        bL = hardwareMap.dcMotor.get("backLeft");          //EH2 - 2
+        fR = hardwareMap.dcMotor.get("frontRight");        //EH2 - 0
+        bR = hardwareMap.dcMotor.get("backRight");         //EH2 - 3
+        lS = hardwareMap.dcMotor.get("linearSlide");       //EH5 - 0
+        glyph = hardwareMap.dcMotor.get("glyph");          //EH5 - 1
+
+        arm = hardwareMap.servo.get("arm");
 
         fL.setDirection(DcMotor.Direction.REVERSE);
         bL.setDirection(DcMotor.Direction.REVERSE);
@@ -53,6 +57,8 @@ public class lmao extends OpMode{
     }
 
     public void loop() {
+
+        arm.setPosition(0);
 
         //Defining drive, strafe, and rotation power.
         double drive = gamepad1.left_stick_y;
@@ -95,7 +101,7 @@ public class lmao extends OpMode{
         }
 
         //Glyph Mechanism Controller
-        glyph.setPower(gamepad2.right_stick_y);
+        glyph.setPower((gamepad2.right_stick_y)/2);
 
     }
 }
