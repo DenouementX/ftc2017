@@ -10,7 +10,6 @@ import com.qualcomm.robotcore.hardware.Servo;
  */
 
 @TeleOp
-@Disabled
 public class servoCalibrating extends OpMode{
     Servo servo;
 
@@ -20,10 +19,10 @@ public class servoCalibrating extends OpMode{
 
     public void loop() {
         if (gamepad1.a){
-            servo.setPosition(0.55);
+            servo.setPosition(0.9);
         }
-        else{
-            servo.setPosition(0.05);
+        else {
+            servo.setPosition(0);
         }
     }
 }
