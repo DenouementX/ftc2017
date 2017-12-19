@@ -65,7 +65,7 @@ public class lmao extends OpMode{
         }
 
         if (gamepad2.dpad_down){
-            lS.setPower(0.7);
+            lS.setPower (0.7);
         }
 
         //Glyph Mechanism Controller
