@@ -40,12 +40,12 @@ public class lmao extends OpMode{
 
     public void init(){
 
-        fL = hardwareMap.dcMotor.get("fL");         //EH2 - 1
-        bL = hardwareMap.dcMotor.get("bL");         //EH2 - 2
-        fR = hardwareMap.dcMotor.get("fR");         //EH2 - 0
-        bR = hardwareMap.dcMotor.get("bR");         //EH2 - 3
-        lS = hardwareMap.dcMotor.get("lS");         //EH5 - 0
-        glyph = hardwareMap.dcMotor.get("glyph");   //EH5 - 1
+        fL = hardwareMap.dcMotor.get("fL");          //EH2 - 1
+        bL = hardwareMap.dcMotor.get("bL");          //EH2 - 2
+        fR = hardwareMap.dcMotor.get("fR");          //EH2 - 0
+        bR = hardwareMap.dcMotor.get("bR");          //EH2 - 3
+        lS = hardwareMap.dcMotor.get("lS");          //EH5 - 0
+        glyph = hardwareMap.dcMotor.get("glyph");    //EH5 - 1
 
         fL.setDirection(DcMotor.Direction.REVERSE);
         bL.setDirection(DcMotor.Direction.REVERSE);
@@ -65,7 +65,7 @@ public class lmao extends OpMode{
         }
 
         if (gamepad2.dpad_down){
-            lS.setPower (0.7);
+            lS.setPower(0.7);
         }
 
         //Glyph Mechanism Controller
