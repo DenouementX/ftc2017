@@ -55,7 +55,7 @@ public class TeleOp_Drive_Code{
         double frontRightPower = drive + strafe + rotate;
         double backRightPower = drive - strafe + rotate;
 
-        double power = -1 * joystick * abs(joystick);
+        double power = -1 * joystick * abs(joystick) / (0.5 * pow(gamePad.right_trigger, 2) + 1);
         double maxPower = findMax(abs(frontLeftPower), abs(backLeftPower), abs(frontRightPower), abs(backRightPower));
 
         frontLeft.setPower(power * frontLeftPower / maxPower);

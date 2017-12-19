@@ -54,34 +54,8 @@ public class lmao extends OpMode{
 
     public void loop() {
 
-        //Defining drive, strafe, and rotation power.
-        double drive = gamepad1.left_stick_y;
-        double strafe = gamepad1.left_stick_x;
-        double rotate = gamepad1.right_stick_x;
-
-        drive = drive * abs(drive);
-        strafe = strafe * abs(strafe);
-
-        //Defining the motor power distribution.
-        double flPower = drive - strafe - rotate;
-        double blPower = drive + strafe - rotate;
-        double frPower = drive + strafe + rotate;
-        double brPower = drive - strafe + rotate;
-
-        //Defining the joystick magnitude and maximum power.
-        //Double POWER = -1 * pow(Range.clip(max(magnitudeLeftStick(gamepad1), abs(rotate)), -1, 1), 3) / (0.5 * pow(gamepad1.right_trigger, 2) + 1);
-        double joyStick = Range.clip(max(magnitudeLeftStick(gamepad1), abs(rotate)), -1, 1);
-        double POWER = -1 * joyStick * abs(joyStick);
-        telemetry.addData("POWER: ", POWER);
-        double maxPower = findMax(abs(flPower), abs(blPower), abs(frPower), abs(brPower)); // greatest value of all motor powers
-        telemetry.addData("maxPower: ", maxPower);
-        telemetry.update();
-
-        //Sets the power for all the drive motors.
-        fL.setPower(POWER * flPower / maxPower);
-        bL.setPower(POWER * blPower / maxPower);
-        fR.setPower(POWER * frPower / maxPower);
-        bR.setPower(POWER * brPower / maxPower);
+        //Drive Code
+        TeleOp_Drive_Code.TeleOpDrive(gamepad1, fL, bL, fR, bR);
 
         //Linear Slide Controller
         lS.setPower(0);
