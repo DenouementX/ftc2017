@@ -28,16 +28,6 @@ public class lmao extends OpMode{
     DcMotor glyph;
     DcMotor lS;
 
-    //This function finds the magnitude of the left stick of a gamepad.
-    public Double magnitudeLeftStick(Gamepad gamepad){
-        return sqrt(pow(gamepad.left_stick_x, 2) + pow(gamepad.left_stick_y, 2));
-    }
-
-    //This function finds the max value given 4 values.
-    public Double findMax(Double d1, Double d2, Double d3, Double d4){
-        return max(max(d1, d2), max(d3, d4));
-    }
-
     public void init(){
 
         fL = hardwareMap.dcMotor.get("fL");          //EH2 - 1
